@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "cbs-blocks/hp-content-slider",
+  "title": "Home Page Content Slider",
+  "category": "widgets",
+  "icon": "admin-comments",
+  "description": "Content slider for industries and services on the home page",
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "typography": {
+      "fontSize": true
+    }
+  },
+  "textdomain": "cbs-mods",
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "editorStyle": "file:./index.css",
+  "attributes": {}
+}

@@ -2,30 +2,70 @@
  * The following styles get applied both on the front of your site
  * and in the editor.
  */
+body .gform-theme{
 
- .vm-bubble {
-	// background-color: #ffffff;
-	// border-radius: 50%;
-	// display: flex;
-	// justify-content: center;
-	// align-items: center;
-	// box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	// position: relative;
-	// z-index: 1;
-	// text-align: center;
-	// padding: 15px;
-	// transition: transform 0.3s ease;
-	// position: absolute;
-	// transform-origin: center;
-	// z-index: -1;
+	&.gform-theme--orbital{
 
-	// filter: blur(180px);
-	
+		.gform_fields{
+			row-gap: 3rem;
+		}
 
-	
-	// .vm-bubble-title {
-	//   margin: 0;
-	//   font-size: 18px;
-	//   font-weight: bold;
-	// }
-  }
+		input[type="text"],
+		input[type="email"],
+		input[type="url"],
+		input[type="tel"],
+		input[type="number"],
+		input[type="password"],
+		input[type="search"],
+		textarea{
+			border: 2px solid #DFE0E1;
+			outline: none;
+			box-shadow: none;
+			border-radius: 6px;
+			height: 2.6rem;
+
+			&:focus,
+			&:active{
+				outline: none !important;
+				border: 2px solid #0093D0; 
+			}
+		}
+
+		& textarea{
+			height: unset;
+		}
+
+		& label,
+		& legend{
+			font-weight: 600;
+		}
+
+		& .gform_required_legend{
+			display: none;
+		}
+
+		& .gform_footer{
+
+			padding-top: 2rem;
+
+			& > input[type="submit"].gform_button{
+				border-radius: 24px !important;
+				background-color: #3FBDF3 !important;
+				color: #FFFFFF !important;
+				padding: 0.8rem 3rem !important;
+				font-family: "Barlow Condensed", sans-serif !important;
+				font-size: 18px !important;
+				font-weight: 600 !important;
+				letter-spacing: 3px !important;
+				text-transform: uppercase !important;
+
+				&:hover{
+					background-color: #0093D0 !important;
+				}
+			}
+		}
+
+		
+		
+	}
+}

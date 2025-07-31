@@ -5,5 +5,66 @@
  * The following styles get applied both on the front of your site
  * and in the editor.
  */
+body .gform-theme.gform-theme--orbital .gform_fields {
+  row-gap: 3rem;
+}
+body .gform-theme.gform-theme--orbital input[type=text],
+body .gform-theme.gform-theme--orbital input[type=email],
+body .gform-theme.gform-theme--orbital input[type=url],
+body .gform-theme.gform-theme--orbital input[type=tel],
+body .gform-theme.gform-theme--orbital input[type=number],
+body .gform-theme.gform-theme--orbital input[type=password],
+body .gform-theme.gform-theme--orbital input[type=search],
+body .gform-theme.gform-theme--orbital textarea {
+  border: 2px solid #DFE0E1;
+  outline: none;
+  box-shadow: none;
+  border-radius: 6px;
+  height: 2.6rem;
+}
+body .gform-theme.gform-theme--orbital input[type=text]:focus, body .gform-theme.gform-theme--orbital input[type=text]:active,
+body .gform-theme.gform-theme--orbital input[type=email]:focus,
+body .gform-theme.gform-theme--orbital input[type=email]:active,
+body .gform-theme.gform-theme--orbital input[type=url]:focus,
+body .gform-theme.gform-theme--orbital input[type=url]:active,
+body .gform-theme.gform-theme--orbital input[type=tel]:focus,
+body .gform-theme.gform-theme--orbital input[type=tel]:active,
+body .gform-theme.gform-theme--orbital input[type=number]:focus,
+body .gform-theme.gform-theme--orbital input[type=number]:active,
+body .gform-theme.gform-theme--orbital input[type=password]:focus,
+body .gform-theme.gform-theme--orbital input[type=password]:active,
+body .gform-theme.gform-theme--orbital input[type=search]:focus,
+body .gform-theme.gform-theme--orbital input[type=search]:active,
+body .gform-theme.gform-theme--orbital textarea:focus,
+body .gform-theme.gform-theme--orbital textarea:active {
+  outline: none !important;
+  border: 2px solid #0093D0;
+}
+body .gform-theme.gform-theme--orbital textarea {
+  height: unset;
+}
+body .gform-theme.gform-theme--orbital label, body .gform-theme.gform-theme--orbital legend {
+  font-weight: 600;
+}
+body .gform-theme.gform-theme--orbital .gform_required_legend {
+  display: none;
+}
+body .gform-theme.gform-theme--orbital .gform_footer {
+  padding-top: 2rem;
+}
+body .gform-theme.gform-theme--orbital .gform_footer > input[type=submit].gform_button {
+  border-radius: 24px !important;
+  background-color: #3FBDF3 !important;
+  color: #FFFFFF !important;
+  padding: 0.8rem 3rem !important;
+  font-family: "Barlow Condensed", sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  letter-spacing: 3px !important;
+  text-transform: uppercase !important;
+}
+body .gform-theme.gform-theme--orbital .gform_footer > input[type=submit].gform_button:hover {
+  background-color: #0093D0 !important;
+}
 
 /*# sourceMappingURL=style-index.css.map*/

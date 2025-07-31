@@ -5,8 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
   ...defaultConfig,
   entry: {
-    //'bubble-cluster/index': path.resolve(process.cwd(), 'src/bubble-cluster/index.js'),
     'hp-content-slider/index': path.resolve(process.cwd(), 'src/hp-content-slider/index.js'),
+    'main': path.resolve(process.cwd(), 'src/main.scss'), // Add this line
   },
   output: {
     ...defaultConfig.output,

@@ -60,3 +60,15 @@ function change_kadence_blocks_variable_font_sizes() {
 }
 add_filter('kadence_blocks_variable_font_sizes','change_kadence_blocks_variable_font_sizes', 25 );
 
+
+function enqueue_cbs_mods_custom_css() {
+    // Enqueue the custom CSS file
+    wp_enqueue_style(
+        'cbs-mods-custom-css',
+        plugin_dir_url(__FILE__) . 'build/main.css',
+        array(),
+        '1.0.2'
+    );
+	
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_cbs_mods_custom_css' );

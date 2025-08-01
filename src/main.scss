@@ -65,3 +65,64 @@ body .gform-theme{
 		
 	}
 }
+
+
+
+body .cbs-list .kb-svg-icon-wrap{
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+
+body .kb-button span.kb-svg-icon-wrap svg{
+	transform: rotate(0deg);
+	transition: transform 0.3s ease;
+}
+
+body .kb-button:hover span.kb-svg-icon-wrap svg{
+	transform: rotate(45deg);
+}
+
+body{
+	letter-spacing: inherit;
+}
+
+body h2.elementor-size-default{
+	text-shadow: 0px 0px 3px rgba(3,15,51,.25);
+	letter-spacing: -0.58px;
+}
+
+body p{
+	letter-spacing: -0.28px;
+}
+
+
+body .insights-card .kb-query-item figure{
+	overflow: clip;
+	border-radius: 8px;
+}
+
+body .insights-card .kb-query-item figure img{
+	transform: scale(1);
+	transition: all 0.3s ease;
+}
+body .insights-card .kb-query-item:hover figure img{
+	transform: scale(1.1);
+}
+
+body #mega-menu-row-layout{
+	margin-left: -3rem;
+}
+
+
+
+body li.kadence-menu-mega-enabled #mega-menu-row-layout{
+	margin-top: -3rem;
+	transition: all 0.4s ease;
+}
+
+body li.kadence-menu-mega-enabled:hover #mega-menu-row-layout{
+	margin-top: 0rem;
+	transition: all 0.4s ease;
+}
+

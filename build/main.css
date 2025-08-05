@@ -122,7 +122,7 @@ body li.kadence-menu-mega-enabled:hover #mega-menu-row-layout {
   body .arrow-section {
     max-width: 100%;
   }
-  body .arrow-section h2 {
+  body .arrow-section--headline {
     max-width: calc(100% - 82px) !important;
   }
   body .arrow-section--content {
@@ -132,6 +132,9 @@ body li.kadence-menu-mega-enabled:hover #mega-menu-row-layout {
 @media screen and (min-width: 1024px) {
   body .arrow-section {
     max-width: 100%;
+  }
+  body .arrow-section--headline {
+    max-width: calc(100% - 82px) !important;
   }
   body .arrow-section--content {
     padding-left: 60px;

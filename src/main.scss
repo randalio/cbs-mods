@@ -135,7 +135,6 @@ body li.kadence-menu-mega-enabled:hover #mega-menu-row-layout{
 
 body{
 
-
 	@media screen and (min-width: 767px){
 		
 		
@@ -143,7 +142,7 @@ body{
 		& .arrow-section {
 			max-width: 100%;
 
-			& h2{
+			&--headline{
 				max-width: calc(100% - 82px) !important;
 			}
 
@@ -156,11 +155,14 @@ body{
 		
 	}
  
- 
 	@media screen and (min-width: 1024px){
 		
 		.arrow-section {
 			max-width: 100%;
+
+			&--headline{
+				max-width: calc(100% - 82px) !important;
+			}
 
 			&--content {
 				padding-left: 60px;
@@ -169,7 +171,6 @@ body{
 		
 		
 	}
- 
  
 	.arrow-section h2{
 		text-shadow: 0px 0px 3px rgba(3.0000000000000067, 15.00000000000005, 51, 0.25);

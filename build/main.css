@@ -118,4 +118,27 @@ body li.kadence-menu-mega-enabled:hover #mega-menu-row-layout {
   transition: all 0.4s ease;
 }
 
+@media screen and (min-width: 767px) {
+  body .arrow-section {
+    max-width: 100%;
+  }
+  body .arrow-section h2 {
+    max-width: calc(100% - 82px) !important;
+  }
+  body .arrow-section--content {
+    padding-left: 42px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  body .arrow-section {
+    max-width: 100%;
+  }
+  body .arrow-section--content {
+    padding-left: 60px;
+  }
+}
+body .arrow-section h2 {
+  text-shadow: 0px 0px 3px rgba(3, 15, 51, 0.25);
+}
+
 /*# sourceMappingURL=main.css.map*/

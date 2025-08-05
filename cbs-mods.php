@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:CBS Mods
+ * Plugin Name: CBS Mods
  * Description: 
- * Version: 1.0.2
+ * Version: 1.0.4
  * Author: Randal Pope
  */
 
@@ -67,7 +67,7 @@ function enqueue_cbs_mods_custom_css() {
         'cbs-mods-custom-css',
         plugin_dir_url(__FILE__) . 'build/main.css',
         array(),
-        '1.0.2'
+        '1.0.4'
     );
 	
 }

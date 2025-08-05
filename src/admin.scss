@@ -1,0 +1,59 @@
+
+
+
+body.wp-admin{
+
+	@media screen and (min-width: 767px){
+		
+		
+		
+		& .arrow-section {
+			max-width: 100%;
+
+			&--headline{
+				max-width: calc(100% - 82px) !important;
+			}
+
+			&--content {
+				padding-left: 42px;
+			}
+		}
+		
+		
+		
+	}
+ 
+	@media screen and (min-width: 1024px){
+		
+		.arrow-section {
+			max-width: 100%;
+
+			&--headline{
+				max-width: calc(100% - 82px) !important;
+			}
+
+			&--content {
+				padding-left: 60px;
+			}
+		}
+		
+		
+	}
+ 
+	.arrow-section{
+
+		h2{
+			text-shadow: 0px 0px 3px rgba(3.0000000000000067, 15.00000000000005, 51, 0.25);
+            margin-top: 0 !important;
+		}
+
+		& .arrow-section--content .wp-block-kadence-iconlist{
+			padding-left: 8px;
+		}
+
+    
+
+
+	}
+
+}

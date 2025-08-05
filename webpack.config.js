@@ -6,7 +6,8 @@ module.exports = {
   ...defaultConfig,
   entry: {
     'hp-content-slider/index': path.resolve(process.cwd(), 'src/hp-content-slider/index.js'),
-    'main': path.resolve(process.cwd(), 'src/main.scss'), // Add this line
+    'main': path.resolve(process.cwd(), 'src/main.scss'), 
+    'admin': path.resolve(process.cwd(), 'src/admin.scss'), 
   },
   output: {
     ...defaultConfig.output,

@@ -72,3 +72,15 @@ function enqueue_cbs_mods_custom_css() {
 	
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_cbs_mods_custom_css' , 100 );
+
+// Enqueue custom admin CSS
+function enqueue_cbs_mods_admin_css() {
+    // Enqueue the custom CSS file for admin
+    wp_enqueue_style(
+        'cbs-mods-admin-css',
+        plugin_dir_url(__FILE__) . 'build/admin.css',
+        array(),
+        '1.0.4'
+    );
+}
+add_action( 'admin_enqueue_scripts', 'enqueue_cbs_mods_admin_css' );

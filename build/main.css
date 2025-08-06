@@ -109,7 +109,7 @@ body .mega-menu-row-layout {
 }
 
 body li.kadence-menu-mega-enabled .mega-menu-row-layout {
-  margin-top: -3rem;
+  margin-top: -1.25rem;
   transition: all 0.4s ease;
 }
 

@@ -67,7 +67,7 @@ function enqueue_cbs_mods_custom_css() {
         'cbs-mods-custom-css',
         plugin_dir_url(__FILE__) . 'build/main.css',
         array(),
-        '1.0.5'
+        time()
     );
 	
 }
@@ -80,7 +80,7 @@ function enqueue_cbs_mods_admin_css() {
         'cbs-mods-admin-css',
         plugin_dir_url(__FILE__) . 'build/admin.css',
         array(),
-        '1.0.5'
+        time()
     );
 }
 add_action( 'admin_enqueue_scripts', 'enqueue_cbs_mods_admin_css' );

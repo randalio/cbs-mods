@@ -111,9 +111,9 @@ body .insights-card .kb-query-item:hover figure img{
 	transform: scale(1.1);
 }
 
-body .mega-menu-row-layout{
-	margin-left: -3rem;
-}
+// body .mega-menu-row-layout{
+// 	margin-left: -3rem;
+// }
 
 
 
@@ -130,6 +130,16 @@ body li.kadence-menu-mega-enabled:hover .mega-menu-row-layout{
 
 
 
+@keyframes CBS_MenuFadeInUp {
+	0% {
+		opacity: 0;
+		margin-top: -1rem;
+	}
+	100% {
+		opacity: 1;
+		margin-top: 0rem;
+	}
+}
 
 
 

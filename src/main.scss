@@ -157,9 +157,9 @@ body{
 		.arrow-section {
 			max-width: 100%;
 
-			// &--headline{
-			// 	max-width: calc(100% - 62px) !important;
-			// }
+			&--headline{
+				max-width: calc(100% - 62px) !important;
+			}
 
 			&--content {
 				padding-left: 60px;

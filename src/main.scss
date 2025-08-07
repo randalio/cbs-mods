@@ -146,6 +146,12 @@ body{
 			&--content {
 				padding-left: 42px;
 			}
+
+			&--100{
+				& .arrow-section--headline{
+					max-width: 100% !important;
+				}
+			}
 		}
 		
 		
@@ -164,6 +170,13 @@ body{
 			&--content {
 				padding-left: 60px;
 			}
+
+			&--100{
+				& .arrow-section--headline{
+					max-width: 100% !important;
+				}
+			}
+
 		}
 		
 		

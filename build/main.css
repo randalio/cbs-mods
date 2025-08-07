@@ -124,6 +124,9 @@ body li.kadence-menu-mega-enabled:hover .mega-menu-row-layout {
   body .arrow-section--content {
     padding-left: 42px;
   }
+  body .arrow-section--100 .arrow-section--headline {
+    max-width: 100% !important;
+  }
 }
 @media screen and (min-width: 1024px) {
   body .arrow-section {
@@ -134,6 +137,9 @@ body li.kadence-menu-mega-enabled:hover .mega-menu-row-layout {
   }
   body .arrow-section--content {
     padding-left: 60px;
+  }
+  body .arrow-section--100 .arrow-section--headline {
+    max-width: 100% !important;
   }
 }
 body .arrow-section h1,

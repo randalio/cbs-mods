@@ -129,9 +129,6 @@ body li.kadence-menu-mega-enabled:hover .mega-menu-row-layout {
   body .arrow-section {
     max-width: 100%;
   }
-  body .arrow-section--headline {
-    max-width: calc(100% - 62px) !important;
-  }
   body .arrow-section--content {
     padding-left: 60px;
   }

@@ -6,7 +6,7 @@
     max-width: 100%;
   }
   body.wp-admin .arrow-section--headline {
-    max-width: calc(100% - 82px) !important;
+    max-width: calc(100% - 42px) !important;
   }
   body.wp-admin .arrow-section--content {
     padding-left: 42px;
@@ -17,7 +17,7 @@
     max-width: 100%;
   }
   body.wp-admin .arrow-section--headline {
-    max-width: calc(100% - 82px) !important;
+    max-width: calc(100% - 62px) !important;
   }
   body.wp-admin .arrow-section--content {
     padding-left: 60px;

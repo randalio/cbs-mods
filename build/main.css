@@ -173,25 +173,19 @@ body .arrow-section .arrow-section--content .wp-block-kadence-iconlist {
     max-height: 100svh !important;
   }
 }
-.hero-animated--rule-headline h1 {
-  opacity: 0;
-  animation: fadeInUp 0.5s ease;
-  animation-delay: 0.2s;
-  animation-fill-mode: forwards;
-}
-.hero-animated--ind-serv .eyebrow {
+.hero-animated .eyebrow {
   opacity: 0;
   animation: fadeInUp 0.5s ease;
   animation-delay: 0s;
   animation-fill-mode: forwards;
 }
-.hero-animated--ind-serv .headline {
+.hero-animated .headline {
   opacity: 0;
   animation: fadeInUp 0.5s ease;
   animation-delay: 0.2s;
   animation-fill-mode: forwards;
 }
-.hero-animated--ind-serv .subheadline {
+.hero-animated .subheadline {
   opacity: 0;
   animation: fadeInUp 0.5s ease;
   animation-delay: 0.4s;

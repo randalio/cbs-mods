@@ -235,41 +235,25 @@ body{
 
 	&-animated{
 
-		&--rule-headline{
-
-			& h1{
-				opacity: 0;
-
-				animation: fadeInUp 0.5s ease;
-				animation-delay: 0.2s;
-				animation-fill-mode: forwards;
-
-			}
+		& .eyebrow{
+			opacity: 0;
+			animation: fadeInUp 0.5s ease;
+			animation-delay: 0s;
+			animation-fill-mode: forwards;
 		}
 
-		&--ind-serv{
+		& .headline{
+			opacity: 0;
+			animation: fadeInUp 0.5s ease;
+			animation-delay: 0.2s;
+			animation-fill-mode: forwards;
+		}
 
-			& .eyebrow{
-				opacity: 0;
-				animation: fadeInUp 0.5s ease;
-				animation-delay: 0s;
-				animation-fill-mode: forwards;
-			}
-
-			& .headline{
-				opacity: 0;
-				animation: fadeInUp 0.5s ease;
-				animation-delay: 0.2s;
-				animation-fill-mode: forwards;
-			}
-
-			& .subheadline{
-				opacity: 0;
-				animation: fadeInUp 0.5s ease;
-				animation-delay: 0.4s;
-				animation-fill-mode: forwards;
-			}
-
+		& .subheadline{
+			opacity: 0;
+			animation: fadeInUp 0.5s ease;
+			animation-delay: 0.4s;
+			animation-fill-mode: forwards;
 		}
 
 	}

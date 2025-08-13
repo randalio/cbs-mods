@@ -2,6 +2,10 @@ body .gform-theme{
 
 	&.gform-theme--orbital{
 
+		.gfield_required_asterisk{
+			color: #3FBDF3;
+		}
+
 		.gform_fields{
 			row-gap: 3rem;
 		}
@@ -202,4 +206,71 @@ body{
 
 	}
 
+}
+
+
+// fadeInUp animation
+@keyframes fadeInUp {
+	0% {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+
+
+.hero{
+	&-100svh{
+
+		@media screen and (max-width: 1024px){
+			min-height: 100svh !important;
+			max-height: 100svh !important;
+		}
+		
+	}
+
+	&-animated{
+
+		&--rule-headline{
+
+			& h1{
+				opacity: 0;
+
+				animation: fadeInUp 0.5s ease;
+				animation-delay: 0.2s;
+				animation-fill-mode: forwards;
+
+			}
+		}
+
+		&--ind-serv{
+
+			& .eyebrow{
+				opacity: 0;
+				animation: fadeInUp 0.5s ease;
+				animation-delay: 0s;
+				animation-fill-mode: forwards;
+			}
+
+			& .headline{
+				opacity: 0;
+				animation: fadeInUp 0.5s ease;
+				animation-delay: 0.2s;
+				animation-fill-mode: forwards;
+			}
+
+			& .subheadline{
+				opacity: 0;
+				animation: fadeInUp 0.5s ease;
+				animation-delay: 0.4s;
+				animation-fill-mode: forwards;
+			}
+
+		}
+
+	}
 }

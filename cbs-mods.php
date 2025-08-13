@@ -12,9 +12,9 @@ if (!defined('ABSPATH')) {
 }
 
 
-function vm_bubble_blocks_register() {
+function cbs_mods_register() {
     // Automatically register blocks by scanning the build directory
-    $blocks_dir = plugin_dir_path(__FILE__) . 'build';
+    $blocks_dir = plugin_dir_path(__FILE__) . 'src';
     
     if (file_exists($blocks_dir)) {
         $block_folders = array_filter(glob($blocks_dir . '/*'), 'is_dir');
@@ -33,16 +33,16 @@ function vm_bubble_blocks_register() {
         error_log('Build directory not found');
     }
 }
-add_action('init', 'vm_bubble_blocks_register');
+add_action('init', 'cbs_mods_register');
 
 // Add debugging notice
-function vm_bubble_blocks_admin_notice() {
+function cbs_mods_admin_notice() {
     $screen = get_current_screen();
     if ($screen && $screen->base === 'post') {
         echo '<div class="notice notice-info is-dismissible"><p>VM Bubble Blocks plugin is active. Search for "VM Bubble" in the block inserter.</p></div>';
     }
 }
-add_action('admin_notices', 'vm_bubble_blocks_admin_notice');
+add_action('admin_notices', 'cbs_mods_admin_notice');
 
 
 
@@ -84,3 +84,37 @@ function enqueue_cbs_mods_admin_css() {
     );
 }
 add_action( 'admin_enqueue_scripts', 'enqueue_cbs_mods_admin_css' );
+
+
+// Add this to your theme's functions.php or a custom plugin
+
+function rename_posts_to_blog_posts() {
+    global $wp_post_types;
+    $labels = &$wp_post_types['post']->labels;
+    
+    $labels->name = 'Blog Posts';
+    $labels->singular_name = 'Blog Post';
+    $labels->add_new = 'Add Blog Post';
+    $labels->add_new_item = 'Add New Blog Post';
+    $labels->edit_item = 'Edit Blog Post';
+    $labels->new_item = 'New Blog Post';
+    $labels->view_item = 'View Blog Post';
+    $labels->search_items = 'Search Blog Posts';
+    $labels->not_found = 'No Blog Posts found';
+    $labels->not_found_in_trash = 'No Blog Posts found in Trash';
+    $labels->all_items = 'All Blog Posts';
+    $labels->menu_name = 'Blog Posts';
+    $labels->name_admin_bar = 'Blog Post';
+}
+add_action('init', 'rename_posts_to_blog_posts');
+
+// Also update the menu label
+function rename_posts_menu_label() {
+    global $menu;
+    global $submenu;
+    
+    $menu[5][0] = 'Blog Posts';
+    $submenu['edit.php'][5][0] = 'All Blog Posts';
+    $submenu['edit.php'][10][0] = 'Add Blog Post';
+}
+add_action('admin_menu', 'rename_posts_menu_label');

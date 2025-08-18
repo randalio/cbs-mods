@@ -59,4 +59,259 @@ body.wp-admin{
 		}
 	}
 
+
+
+
+	.services-slider {
+		counter-reset: service_slide;
+	
+		&  .slider-button :before{
+			counter-increment: service_slide;
+			  content: "0" counter(service_slide);
+			display: inline-block;
+			margin-right: 1rem;
+			font-weight: 600;
+			font-size: 18px;
+			vertical-align: middle;
+		}
+	}
+	
+	  
+	.industries-slider {
+	counter-reset: industry_slide;
+	
+	
+	
+		& .slider-button{
+	
+		
+			&:before{
+				counter-increment: industry_slide;
+				content: "0" counter(industry_slide);
+				display: inline-block;
+				margin-right: 1rem;
+				font-weight: 600;
+				z-index: 1;
+				vertical-align: middle;
+			}
+		}
+	
+		& .slider-navigation-buttons{
+	
+			& .slider-button.kb-button{
+				text-align: left !important;;
+				
+			}
+	
+			& .slider-button.kb-button .kt-btn-inner-text{
+				border-radius: 6px !important;
+				padding-top: 0.6rem !important;
+				padding-bottom: 0.6rem !important;
+				overflow: clip;
+				margin: 0;
+				display: inline-block;
+				font-size: clamp(18px, 2vw, 21px) !important;
+				
+			}
+	
+			& .slider-button.kb-button:hover .kt-btn-inner-text{
+				background: #DFE0E1;
+				border-radius: 6px !important;
+			}
+	
+		}
+	
+	
+	
+	
+		
+	
+	}
+	
+	.tabbed-content-slider{
+	
+		.slider-navigation-buttons{
+	
+			& .slider-button.kb-button{
+				text-align: left !important;
+				
+				&:before{
+					opacity: 1;
+					font-size: 18px;
+					top: 50%;
+					left: 1.5rem;
+					transform: translateY(-50%);
+					margin-top: 3px;
+				}
+				
+	
+			}
+	
+			& .slider-button.kb-button .kt-btn-inner-text{
+				border-radius: 6px !important;
+				
+				overflow: clip;
+				margin: 0;
+				display: inline-block;
+				padding-left: 4.5rem;
+				padding-top: 0.6rem !important;
+				padding-bottom: 0.6rem !important;
+				padding-right: 1.5rem;
+				line-height: 1;
+				font-size: clamp(18px, 2vw, 28px);
+	
+				@media screen and (max-width: 1024px){
+					vertical-align: middle;
+					padding-left: 4.5rem;
+					
+				}
+			}
+	
+			& .slider-button.kb-button:hover .kt-btn-inner-text{
+				background: #DFE0E1;
+				border-radius: 6px !important;
+			}
+	
+			
+	
+			& .slider-button.kb-button .kt-btn-inner-text:before{
+	
+	
+				display: block;
+				flex-direction: column;
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				left: 1.5rem;
+				margin-top: 3px;
+				z-index: 9;
+	
+				@media screen and (max-width: 1024px){
+					left: 1.5rem;
+				}
+					
+				
+				
+			}
+	
+		}
+	
+		& .kb-advanced-slide-inner-wrap{
+			justify-content: flex-start !important;
+			align-items: flex-start;
+			padding: 0;
+			text-align: left !important;
+		}
+	
+	
+		& .swiper-slide{
+	
+			background-color: var(--global-palette8);
+	
+	
+			& h2{
+				opacity: 0;
+				transform: translateY(2rem);
+				transition: all 0.5s ease 0s;
+
+				@media screen and (max-width: 1024px){
+					font-size: 26px;
+				}
+	
+				& mark.has-theme-palette-3-color{
+					font-size: 30px;
+					font-weight: 600;
+					vertical-align: middle;
+					letter-spacing: -0.3px;
+					line-height: 48px;
+					margin-right: 1rem;
+					padding-bottom: 3px;
+				}
+			}
+	
+			& p.wp-block-kadence-advancedheading{
+				opacity: 0;
+				transform: translateY(2rem);
+				transition: all 0.5s ease 0s;
+			}
+	
+			& ul{
+				opacity: 0;
+				transform: translateY(2rem);
+				transition: all 0.5s ease 0s;
+				
+			}
+	
+	
+			&-active{
+	
+				& h2{
+					opacity: 1;
+					transform: translateY(0);
+					transition: all 0.5s ease 0.7s;
+				}
+	
+				& p.wp-block-kadence-advancedheading{
+					opacity: 1;
+					transform: translateY(0);
+					transition: all 0.5s ease 0.5s;
+					
+				}
+	
+				& ul{
+					opacity: 1;
+					transform: translateY(0);
+					transition: all 0.5s ease 0.3s;
+					
+				}
+	
+			}
+	
+	
+	
+		}
+	
+		& .industries_slider_content{
+	
+			& .kb-row-layout-wrap,
+			& .kt-row-layout-overlay{
+				@media screen and (max-width: 1024px){
+					background-image: unset;
+				}
+			}
+	
+			& *{
+				
+				@media screen and (max-width: 1024px){
+					color: var(--global-palette3);
+				}
+			}
+	
+		}
+	
+		& .industries_slider_cta_buttons{
+	
+			@media screen and (max-width: 1024px){
+				display: none !important;
+			}
+		}
+	
+		& .industries_slider_cta_buttons_mobile{
+	
+			@media screen and (min-width: 1024px){
+				display: none !important;
+			}
+		}
+	
+		& .services_slider_image{
+			@media screen and (max-width: 1024px){
+				display: none !important;
+			}
+		}
+	
+	}
+
+
+
+
 }

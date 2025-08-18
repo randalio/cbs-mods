@@ -50,7 +50,7 @@ add_action('admin_notices', 'cbs_mods_admin_notice');
 function change_kadence_blocks_variable_font_sizes() {
   $arr = array(
     'sm'   => 'clamp(0.8rem, 0.73rem + 0.217vw, 0.9rem)',
-    'md'   => 'clamp(1.1rem, 2vw, 1.313rem); letter-spacing: -0.21px;', // regular 0.995rem + 0.326vw
+    'md'   => 'clamp(1.125rem, 2vw, 1.313rem); letter-spacing: -0.21px;', // regular 0.995rem + 0.326vw
     'lg'   => 'clamp(1.313rem, 2vw, 1.75rem); letter-spacing: -0.42px !important;', // large text 1.576rem + 0.543vw
     'xl'   => 'clamp(1.375rem, 3vw, 2rem)', // x large text
     'xxl'  => 'clamp(2.5rem, 1.456rem + 3.26vw, 3.25rem)', // heading 2
@@ -86,6 +86,26 @@ function enqueue_cbs_mods_admin_css() {
 add_action( 'admin_enqueue_scripts', 'enqueue_cbs_mods_admin_css' );
 
 
+// Enqueue custom admin CSS
+function enqueue_cbs_mods_slider_js() {
+    // Enqueue the custom CSS file for admin
+    wp_enqueue_script(
+        'cbs-mods-slider-js',
+        plugin_dir_url(__FILE__) . 'build/tabbed-content-slider.js',
+        array(),
+        time(),
+        array(
+            'in_footer' => true, // Load in footer  
+        ),
+
+    );
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_cbs_mods_slider_js' );
+
+
+
+
+
 // Add this to your theme's functions.php or a custom plugin
 
 function rename_posts_to_blog_posts() {
@@ -118,3 +138,15 @@ function rename_posts_menu_label() {
     $submenu['edit.php'][10][0] = 'Add Blog Post';
 }
 add_action('admin_menu', 'rename_posts_menu_label');
+
+
+
+add_filter('wpswiper_frontend_js_register_args', function($args) {
+    // Modify script dependencies
+    $args['deps'] = ['wpswiper-bundle', 'jquery', 'cbs-mods-slider-js'];
+
+    // Specify an additional loading strategy, such as async or defer
+    $args['args'] = ['in_footer' => false, 'strategy' => 'defer']; // Options: 'async' or 'defer'
+
+    return $args;
+}, 20); // Higher priority number

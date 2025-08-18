@@ -6,9 +6,10 @@ module.exports = {
   ...defaultConfig,
   entry: {
     // 'bubble-cluster/index': path.resolve(process.cwd(), 'src/blocks/bubble-cluster/index.js'),
-    // 'bubble/index': path.resolve(process.cwd(), 'src/blocks/bubble/index.js'),
+    'tabbed-content-slider': path.resolve(process.cwd(), 'src/tabbed-content-slider.js'),
     // Add your main SCSS file
     'main': path.resolve(process.cwd(), 'src/main.scss'),
+    'admin': path.resolve(process.cwd(), 'src/admin.scss'),
   },
   output: {
     ...defaultConfig.output,

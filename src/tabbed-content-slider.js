@@ -1,48 +1,41 @@
+function homepageHero() {
+
+  console.log('homepageHero');
+  const windowWidth = window.innerWidth;
+  const hero = document.getElementById('home_hero');
+
+  if (hero) {
+    const video = hero.querySelector('.kb-blocks-bg-video');
+    const currentSrc = video.getAttribute('src');
+
+    // Save the original desktop src in a data attribute (only once)
+    if (!video.dataset.desktopSrc) {
+      video.dataset.desktopSrc = currentSrc;
+    }
+
+    const desktopSrc = "https://cbsteam.mystagingwebsite.com/wp-content/uploads/CBS_WEBSITE_BACKSPLASH_OPTION1_V1.1-compressed-video-converter.com_.mp4"
+    const mobileSrc = "https://cbsteam.mystagingwebsite.com/wp-content/uploads/mobile-video-sm.mp4";
+
+    if (windowWidth < 768 && currentSrc !== mobileSrc) {
+      // Switch to mobile video
+      video.setAttribute('src', mobileSrc);
+      video.load();
+    } else if (windowWidth >= 768 && currentSrc !== desktopSrc) {
+      // Switch back to desktop video
+      video.setAttribute('src', desktopSrc);
+      video.load();
+    }
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 
 
-
-  // get window width
-
-
-  function homepageHero() {
-    const windowWidth = window.innerWidth;
-    const hero = document.getElementById('home_hero');
-  
-    if (hero) {
-      const video = hero.querySelector('.kb-blocks-bg-video');
-      const currentSrc = video.getAttribute('src');
-  
-      // Save the original desktop src in a data attribute (only once)
-      if (!video.dataset.desktopSrc) {
-        video.dataset.desktopSrc = currentSrc;
-      }
-  
-      const desktopSrc = video.dataset.desktopSrc;
-      const mobileSrc = "https://cbsteam.mystagingwebsite.com/wp-content/uploads/mobile-video-sm.mp4";
-  
-      if (windowWidth < 768 && currentSrc !== mobileSrc) {
-        // Switch to mobile video
-        video.setAttribute('src', mobileSrc);
-        video.load();
-      } else if (windowWidth >= 768 && currentSrc !== desktopSrc) {
-        // Switch back to desktop video
-        video.setAttribute('src', desktopSrc);
-        video.load();
-      }
-    }
-  }
   
   homepageHero();
   
   // Optional: run again on resize
   window.addEventListener('resize', homepageHero);
-  
-  
-  
-
-
-
 
 
     //console.log('[CustomSlider] DOM loaded — initializing Swipers…');

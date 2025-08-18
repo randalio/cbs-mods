@@ -470,6 +470,18 @@ body .tabbed-content-slider{
 
 		}
 
+		&-prev{
+
+			& h2,
+			& p.wp-block-kadence-advancedheading,
+			& ul{
+				opacity: 0;
+				transform: translateY(0) !important;
+				transition: opacity 0.2s ease 0s;
+			}
+			
+		}
+
 
 
 	}

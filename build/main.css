@@ -342,6 +342,11 @@ body .tabbed-content-slider .swiper-slide-active ul {
   transform: translateY(0);
   transition: all 0.5s ease 0.3s;
 }
+body .tabbed-content-slider .swiper-slide-prev h2, body .tabbed-content-slider .swiper-slide-prev p.wp-block-kadence-advancedheading, body .tabbed-content-slider .swiper-slide-prev ul {
+  opacity: 0;
+  transform: translateY(0) !important;
+  transition: opacity 0.2s ease 0s;
+}
 @media screen and (max-width: 1024px) {
   body .tabbed-content-slider .industries_slider_content .kb-row-layout-wrap, body .tabbed-content-slider .industries_slider_content .kt-row-layout-overlay {
     background-image: unset;

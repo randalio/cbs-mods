@@ -1,4 +1,35 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+
+
+  // get window width
+
+
+  function homepageHero(){
+    const windowWidth = window.innerWidth;
+
+
+  
+      const hero = document.getElementById('home_hero');
+  
+      if (hero) {
+          const video = hero.querySelector('.kb-blocks-bg-video');
+          const videoSrc = video.getAttribute('src');
+          const mobileSrc = "https://cbsteam.mystagingwebsite.com/wp-content/uploads/mobile-video-sm.mp4";
+          
+          if (windowWidth < 768) {
+            //setTimeout(() => {
+              // If on mobile, change the video source
+                video.setAttribute('src', mobileSrc);
+                video.load(); // Reload the video with the new source
+            //}, 1000); // Delay to ensure the video is loaded
+          }
+      }
+  }
+  homepageHero();
+
+
+
     //console.log('[CustomSlider] DOM loaded — initializing Swipers…');
 
 

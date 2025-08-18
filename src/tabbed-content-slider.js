@@ -5,28 +5,43 @@ document.addEventListener('DOMContentLoaded', function() {
   // get window width
 
 
-  function homepageHero(){
+  function homepageHero() {
     const windowWidth = window.innerWidth;
-
-
+    const hero = document.getElementById('home_hero');
   
-      const hero = document.getElementById('home_hero');
+    if (hero) {
+      const video = hero.querySelector('.kb-blocks-bg-video');
+      const currentSrc = video.getAttribute('src');
   
-      if (hero) {
-          const video = hero.querySelector('.kb-blocks-bg-video');
-          const videoSrc = video.getAttribute('src');
-          const mobileSrc = "https://cbsteam.mystagingwebsite.com/wp-content/uploads/mobile-video-sm.mp4";
-          
-          if (windowWidth < 768) {
-            //setTimeout(() => {
-              // If on mobile, change the video source
-                video.setAttribute('src', mobileSrc);
-                video.load(); // Reload the video with the new source
-            //}, 1000); // Delay to ensure the video is loaded
-          }
+      // Save the original desktop src in a data attribute (only once)
+      if (!video.dataset.desktopSrc) {
+        video.dataset.desktopSrc = currentSrc;
       }
+  
+      const desktopSrc = video.dataset.desktopSrc;
+      const mobileSrc = "https://cbsteam.mystagingwebsite.com/wp-content/uploads/mobile-video-sm.mp4";
+  
+      if (windowWidth < 768 && currentSrc !== mobileSrc) {
+        // Switch to mobile video
+        video.setAttribute('src', mobileSrc);
+        video.load();
+      } else if (windowWidth >= 768 && currentSrc !== desktopSrc) {
+        // Switch back to desktop video
+        video.setAttribute('src', desktopSrc);
+        video.load();
+      }
+    }
   }
+  
   homepageHero();
+  
+  // Optional: run again on resize
+  window.addEventListener('resize', homepageHero);
+  
+  
+  
+
+
 
 
 
@@ -132,3 +147,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
   });
   
+

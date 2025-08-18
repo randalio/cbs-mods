@@ -13,8 +13,8 @@ function homepageHero() {
       video.dataset.desktopSrc = currentSrc;
     }
 
-    const desktopSrc = "https://cbsteam.mystagingwebsite.com/wp-content/uploads/CBS_WEBSITE_BACKSPLASH_OPTION1_V1.1-compressed-video-converter.com_.mp4"
-    const mobileSrc = "https://cbsteam.mystagingwebsite.com/wp-content/uploads/mobile-video-sm.mp4";
+    const desktopSrc =  hero.getAttribute('data-video-lg');  //"https://cbsteam.mystagingwebsite.com/wp-content/uploads/CBS_WEBSITE_BACKSPLASH_OPTION1_V1.1-compressed-video-converter.com_.mp4"
+    const mobileSrc =  hero.getAttribute('data-video-sm');  //"https://cbsteam.mystagingwebsite.com/wp-content/uploads/mobile-video-sm.mp4";
 
     if (windowWidth < 768 && currentSrc !== mobileSrc) {
       // Switch to mobile video

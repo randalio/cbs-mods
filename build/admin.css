@@ -33,12 +33,7 @@ body.wp-admin .arrow-section a:hover, body.wp-admin .arrow-section a:active, bod
 body.wp-admin .arrow-section .arrow-section--content .wp-block-kadence-iconlist {
   padding-left: 8px;
 }
-body.wp-admin .services-slider {
-  counter-reset: service_slide;
-}
 body.wp-admin .services-slider .slider-button :before {
-  counter-increment: service_slide;
-  content: "0" counter(service_slide);
   display: inline-block;
   margin-right: 1rem;
   font-weight: 600;

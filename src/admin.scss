@@ -63,11 +63,11 @@ body.wp-admin{
 
 
 	.services-slider {
-		counter-reset: service_slide;
+		//counter-reset: service_slide;
 	
 		&  .slider-button :before{
-			counter-increment: service_slide;
-			  content: "0" counter(service_slide);
+			//counter-increment: service_slide;
+			//  content: "0" counter(service_slide);
 			display: inline-block;
 			margin-right: 1rem;
 			font-weight: 600;

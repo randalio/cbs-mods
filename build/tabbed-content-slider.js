@@ -7,25 +7,40 @@ function homepageHero() {
   const windowWidth = window.innerWidth;
   const hero = document.getElementById('home_hero');
   if (hero) {
-    const video = hero.querySelector('.kb-blocks-bg-video');
-    const currentSrc = video.getAttribute('src');
+    const dataVideoLg = hero.getAttribute('data-video-lg');
+    const dataVideoSm = hero.getAttribute('data-video-sm');
 
-    // Save the original desktop src in a data attribute (only once)
-    if (!video.dataset.desktopSrc) {
-      video.dataset.desktopSrc = currentSrc;
-    }
-    const desktopSrc = hero.getAttribute('data-video-lg'); //"https://cbsteam.mystagingwebsite.com/wp-content/uploads/CBS_WEBSITE_BACKSPLASH_OPTION1_V1.1-compressed-video-converter.com_.mp4"
-    const mobileSrc = hero.getAttribute('data-video-sm'); //"https://cbsteam.mystagingwebsite.com/wp-content/uploads/mobile-video-sm.mp4";
+    // check if video container already exists{
+    const existingVideoContainer = hero.querySelector('.kb-blocks-bg-video-container');
+    if (!existingVideoContainer) {
+      // preppend .kb-blocks-bg-video-container at start of #home_hero
+      const videoContainer = document.createElement('div');
+      videoContainer.classList.add('kb-blocks-bg-video-container');
+      hero.prepend(videoContainer);
 
-    if (windowWidth < 768 && currentSrc !== mobileSrc) {
-      // Switch to mobile video
-      video.setAttribute('src', mobileSrc);
-      video.load();
-    } else if (windowWidth >= 768 && currentSrc !== desktopSrc) {
-      // Switch back to desktop video
-      video.setAttribute('src', desktopSrc);
-      video.load();
+      // create video element
+      const videoElement = document.createElement('video');
+      videoElement.classList.add('kb-blocks-bg-video');
+      videoElement.setAttribute('autoplay', '');
+      videoElement.setAttribute('muted', '');
+      videoElement.setAttribute('loop', '');
+      videoElement.setAttribute('playsinline', '');
+      videoContainer.appendChild(videoElement);
+
+      // set video source based on window width
+      if (windowWidth < 768 && dataVideoSm) {
+        const sourceElement = document.createElement('source');
+        sourceElement.setAttribute('src', dataVideoSm);
+        sourceElement.setAttribute('type', 'video/mp4');
+        videoElement.appendChild(sourceElement);
+      } else if (dataVideoLg) {
+        const sourceElement = document.createElement('source');
+        sourceElement.setAttribute('src', dataVideoLg);
+        sourceElement.setAttribute('type', 'video/mp4');
+        videoElement.appendChild(sourceElement);
+      }
     }
+    videoElement.load();
   }
 }
 document.addEventListener('DOMContentLoaded', function () {

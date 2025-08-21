@@ -270,6 +270,13 @@ body .tabbed-content-slider .slider-navigation-buttons .slider-button.kb-button:
     font-size: 16px;
   }
 }
+body .tabbed-content-slider .slider-navigation-buttons .slider-button.kb-button.active:before {
+  color: var(--global-palette3);
+}
+body .tabbed-content-slider .slider-navigation-buttons .slider-button.kb-button.active .kt-btn-inner-text {
+  background-color: #DFE0E1;
+  color: var(--global-palette3);
+}
 body .tabbed-content-slider .slider-navigation-buttons .slider-button.kb-button .kt-btn-inner-text {
   border-radius: 6px !important;
   overflow: clip;

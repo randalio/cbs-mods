@@ -14,6 +14,12 @@ body #home_hero video {
   animation: HHfadeIn 1s ease-in-out forwards;
 }
 
+body .list-font-light .kt-svg-icon-list-text {
+  font-size: 21px;
+  line-height: 1;
+  font-weight: 300;
+}
+
 body .gform-theme.gform-theme--orbital .gfield_required_asterisk {
   color: #3FBDF3;
 }

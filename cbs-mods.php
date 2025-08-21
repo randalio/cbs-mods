@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CBS Mods
  * Description: 
- * Version: 1.0.8
+ * Version: 1.1
  * Author: Randal Pope
  */
 
@@ -150,3 +150,5 @@ add_filter('wpswiper_frontend_js_register_args', function($args) {
 
     return $args;
 }, 20); // Higher priority number
+
+

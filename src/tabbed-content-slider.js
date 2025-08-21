@@ -41,9 +41,12 @@ function homepageHero() {
         sourceElement.setAttribute('type', 'video/mp4');
         videoElement.appendChild(sourceElement);
       }
+      
+      videoElement.load();
+
     }
 
-    videoElement.load();
+    
 
     
 

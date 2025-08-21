@@ -549,93 +549,244 @@ body .tabbed-content-slider{
 }
 
  
-.page .process-card-wrap {
-	display: flex;
-	flex-grow: 1;
-  }
-  .page .process-card-inner {
-	width: 100%;
-	height: 100%;
-	position: relative;
-	display: flex;
-	flex-grow: 1;
+.page {
+
+
+	.process-card-wrap {
+	  display: flex;
+	  flex-grow: 1;
+  
+	  > * {
+		display: flex;
+		width: 100%;
+		height: 100%;
+	  }
+
+
+	//   &:hover{
+	// 	& .process-card-inner .background-elements{
+
+	// 		.left-half-background{
+	// 			background-color: #020E33 !important;
+	// 			transition: background-color 0.3s ease !important;
+	// 		}
+
+	// 		.top-right-border,
+	// 		.connector-arrow{
+	// 			border-color:  #020E33 !important;
+	// 			transition: border-color 0.3s ease !important;
+	// 		}
+	// 		.connector-arrow svg path{
+	// 			fill: #020E33 !important;
+	// 			transition: fill 0.3s ease !important;
+	// 		}
+	// 	}
+	// 	& .process-card-inner .content-wrapper .content{
+	// 		background-color: #0093D0;
+	// 		transition: background-color 0.3s ease !important;
+	// 	}
+	//   }
+
+
+	}
+	
+	.process-card-last{
+
+		& .background-elements{
+
+
+			.connector-arrow {
+				display: none !important;
+			}
+
+			.top-right-border {
+			width: calc(50% - 0.5rem);
+			height:60% !important;
+			top: 0;
+			}
+	
+			.bottom-right-border {
+				width: calc(50% - 0.5rem);
+				height: 50%;
+				bottom: 0;
+			}
+
+
+		}
+
+		// &:hover .background-elements{
+		// 	& .bottom-right-border {
+		// 		border-color: #020E33 !important;
+		// 		transition: border-color 0.3s ease !important;
+		// 	}
+		// }
+
+
+
+	}
+  
+	.process-card-inner {
+	  width: 100%;
+	  height: 100%;
+	  position: relative;
+	  display: flex;
+	  flex-grow: 1;
+  
+	  > * {
+		display: flex;
+		width: 100%;
+		height: 100%;
+	  }
+  
+	  .background-elements {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+  
+		> * {
+		  position: absolute;
+		}
+  
+		.left-half-background {
+		  background-color: #0093d0;
+		  top: 0;
+		  left: 0;
+		  height: 100%;
+		  width: 50%;
+		  border-radius: 3rem 0 0 3rem;
+
+		  @media screen and (max-width: 1024px){
+			height:50%;
+			width: 100%;
+			border-radius: 3rem  3rem 0 0  ;
+		  }
+		}
+  
+		.top-right-border {
+		  width: calc(50% - 0.5rem);
+		  height: calc(50% - 2rem);
+		  top: 0;
+		  left: calc(50% + 0.5rem);
+		  border-top: 4px solid #0093d0;
+		  border-right: 4px solid #0093d0;
+		  border-radius: 0 3rem 0 0;
+
+		  @media screen and (max-width: 1024px){
+
+			border-top: 0px solid transparent;
+		  	border-right: 0px solid transparent;
+
+			border-bottom: 4px solid #0093d0;
+		  	border-left: 4px solid #0093d0;
+
+			border-radius: 0 0 0 3rem  ;
+
+			width: 55%;
+			height: calc(50% - 1rem);
+			top: unset;
+			bottom: 0;
+			left: 0;
+		  }
+
+		}
+  
+		.bottom-right-border {
+		  width: calc(50% - 0.5rem);
+		  height: calc(50% - 1rem);
+		  bottom: 0;
+		  left: calc(50% + 0.5rem);
+		  border-bottom: 4px solid #0093d0;
+		  border-right: 4px solid #0093d0;
+		  border-radius: 0 0 3rem 0;
+
+		  @media screen and (max-width: 1024px){
+			width: 55%;
+			left: unset;
+			right: 0;
+		  }
+		}
+  
+		.connector-arrow {
+		  border-left: 4px solid #0093d0;
+		  border-bottom: 4px solid #0093d0;
+		  width: 2rem;
+		  height: 1rem;
+		  left: calc(100% - 4px);
+		  top: calc(50% - 2rem);
+		  border-radius: 0 0.5rem;
+
+		  @media screen and (max-width: 1024px){
+			border-left: 4px solid #0093d0;
+			border-bottom: 0px solid transparent;
+			left: 50%;
+		  	top: unset; //calc(50% - 2rem);
+			bottom: -36px;
+			border-radius: 0;
+			height: 2.5rem;
+		  }
+  
+		  svg {
+			position: absolute;
+			width: 40px;
+			height: 34px;
+			left: 0.5rem;
+			
+
+			@media screen and (max-width: 1024px){
+				transform: rotate( 90deg);
+				left: -25px;
+				top: 1.125rem;
+			}
+		  }
+
+
+		}
+	  }
+  
+	  .content-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		top: 0;
+		left: 0;
+  
+		> * {
+		  display: flex;
+		  width: 100%;
+		  height: 100%;
+		  padding: 1.5rem;
+
+		  @media screen and (max-width: 1280px){
+			padding: 1rem;
+		  }
+		  @media screen and (max-width:768px){
+			padding: 1.5rem;
+		  }
+		}
+  
+		.content {
+		  background-color: #020e33;
+		  flex-grow: 1;
+		  border-radius: 2rem;
+		  width: 100%;
+		  height: 100%;
+
+		  @media screen and (max-width: 768px){
+			min-height: 250px;
+		  }
+
+		  & p{
+			font-size: clamp(14px, 1vw, 18px);
+
+			@media screen and (max-width: 768px){
+				font-size: 18px;
+			  }
+		  }
+
+
+		}
+	  }
+	}
   }
   
-  .page .process-card-wrap > *,
-  .page .process-card-inner > *,
-  .page .process-card-inner .content-wrapper > *{
-	display: flex;
-	width: 100%;
-	height: 100%;
-  }
-  
-  .page .process-card-inner .background-elements {
-	position: absolute;
-	height: 100%;
-	width: 100%;
-  }
-  .page .process-card-inner .background-elements > * {
-	position: absolute;
-  }
-  .page .process-card-inner .background-elements .left-half-background {
-	background-color: #0093D0;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 50%;
-	border-radius: 3rem 0 0 3rem;
-  }
-  .page .process-card-inner .background-elements .top-right-border {
-	width: calc(50% - 0.5rem);
-	height: calc(50% - 2rem);
-	top: 0;
-	left: calc(50% + 0.5rem);
-	border-top: 4px solid #0093D0;
-	border-right: 4px solid #0093D0;
-	border-radius: 0 3rem 0 0;
-  }
-  .page .process-card-inner .background-elements .bottom-right-border {
-	width: calc(50% - 0.5rem);
-	height: calc(50% - 0.25rem);
-	bottom: 0;
-	left: calc(50% + 0.5rem);
-	border-bottom: 4px solid #0093D0;
-	border-right: 4px solid #0093D0;
-	border-radius: 0 0 3rem 0;
-  }
-  .page .process-card-inner .background-elements .connector-arrow {
-	border-left: 4px solid #0093D0;
-	border-bottom: 4px solid #0093D0;
-	width: 2rem;
-	height: 1rem;
-	left: calc(100% - 4px);
-	top: calc(50% - 2rem);
-	border-radius: 0 0.5rem;
-  }
-  .page .process-card-inner .background-elements .connector-arrow svg {
-	position: absolute;
-	width: 40px;
-	height: 34px;
-	left: 0.5rem;
-	top: calc(50% - 6px);
-  }
-  .page .process-card-inner .content-wrapper {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	top: 0;
-	left: 0;
-  }
-  
-  .page .process-card-inner .content-wrapper > *{
-	padding: 1.5rem;
-  }
-  
-  .page .process-card-inner .content-wrapper .content {
-	background-color: #020E33;
-	flex-grow: 1;
-	border-radius: 2rem;
-	width: 100%;
-	height: 100%;
-  }

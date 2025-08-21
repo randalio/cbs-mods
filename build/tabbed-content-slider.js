@@ -29,17 +29,20 @@ function homepageHero() {
 
       // set video source based on window width
       if (windowWidth < 768 && dataVideoSm) {
-        const sourceElement = document.createElement('source');
-        sourceElement.setAttribute('src', dataVideoSm);
-        sourceElement.setAttribute('type', 'video/mp4');
-        videoElement.appendChild(sourceElement);
+        setTimeout(() => {
+          const sourceElement = document.createElement('source');
+          sourceElement.setAttribute('src', dataVideoSm);
+          sourceElement.setAttribute('type', 'video/mp4');
+          videoElement.appendChild(sourceElement);
+        }, 1000);
       } else if (dataVideoLg) {
         const sourceElement = document.createElement('source');
         sourceElement.setAttribute('src', dataVideoLg);
         sourceElement.setAttribute('type', 'video/mp4');
         videoElement.appendChild(sourceElement);
       }
-      videoElement.load();
+
+      //videoElement.load();
     }
   }
 }

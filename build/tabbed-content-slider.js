@@ -9,16 +9,11 @@ function homepageHero() {
   if (hero) {
     const dataVideoLg = hero.getAttribute('data-video-lg');
     const dataVideoSm = hero.getAttribute('data-video-sm');
-
-    // check if video container already exists{
     const existingVideoContainer = hero.querySelector('.kb-blocks-bg-video-container');
     if (!existingVideoContainer) {
-      // preppend .kb-blocks-bg-video-container at start of #home_hero
       const videoContainer = document.createElement('div');
       videoContainer.classList.add('kb-blocks-bg-video-container');
       hero.prepend(videoContainer);
-
-      // create video element
       const videoElement = document.createElement('video');
       videoElement.classList.add('kb-blocks-bg-video');
       videoElement.setAttribute('autoplay', '');
@@ -27,22 +22,20 @@ function homepageHero() {
       videoElement.setAttribute('playsinline', '');
       videoContainer.appendChild(videoElement);
 
-      // set video source based on window width
-      if (windowWidth < 768 && dataVideoSm) {
-        setTimeout(() => {
-          const sourceElement = document.createElement('source');
-          sourceElement.setAttribute('src', dataVideoSm);
-          sourceElement.setAttribute('type', 'video/mp4');
-          videoElement.appendChild(sourceElement);
-        }, 1000);
-      } else if (dataVideoLg) {
+      // pick correct source
+      const src = windowWidth < 768 && dataVideoSm ? dataVideoSm : dataVideoLg;
+      if (src) {
         const sourceElement = document.createElement('source');
-        sourceElement.setAttribute('src', dataVideoLg);
+        sourceElement.setAttribute('src', src);
         sourceElement.setAttribute('type', 'video/mp4');
         videoElement.appendChild(sourceElement);
-      }
 
-      //videoElement.load();
+        // Ensure the video reloads and tries to autoplay
+        videoElement.load();
+        videoElement.play().catch(err => {
+          console.warn("Autoplay blocked:", err);
+        });
+      }
     }
   }
 }

@@ -274,7 +274,7 @@ body .tabbed-content-slider .slider-navigation-buttons .slider-button.kb-button.
   color: var(--global-palette3);
 }
 body .tabbed-content-slider .slider-navigation-buttons .slider-button.kb-button.active .kt-btn-inner-text {
-  background-color: #DFE0E1;
+  background-color: #DFE0E1 !important;
   color: var(--global-palette3);
 }
 body .tabbed-content-slider .slider-navigation-buttons .slider-button.kb-button .kt-btn-inner-text {

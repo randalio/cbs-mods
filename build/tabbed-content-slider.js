@@ -16,9 +16,9 @@ function homepageHero() {
       hero.prepend(videoContainer);
       const videoElement = document.createElement('video');
       videoElement.classList.add('kb-blocks-bg-video');
-      videoElement.setAttribute('autoplay', '');
-      videoElement.setAttribute('muted', '');
-      videoElement.setAttribute('loop', '');
+      videoElement.setAttribute('autoplay', 'autoplay');
+      videoElement.setAttribute('muted', 'muted');
+      videoElement.setAttribute('loop', 'loop');
       videoElement.setAttribute('playsinline', '');
       videoContainer.appendChild(videoElement);
 
@@ -44,7 +44,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const home = document.querySelector('body.home') ? true : false;
   if (home) {
+    //setTimeout( function(){
     homepageHero();
+    ///}, 1000);
 
     // Optional: run again on resize
     window.addEventListener('resize', homepageHero);

@@ -20,34 +20,59 @@ function homepageHero() {
         console.log('Window width:', windowWidth, 'Selected src:', src); // Debug log
 
         if (src) {
-          const currentSrc = videoElement.getAttribute('src');
+          const currentSrc = videoElement.getAttribute('src') || videoElement.src;
           console.log('Current src:', currentSrc, 'New src:', src); // Debug log
 
           // Only update if the source has changed
           if (currentSrc !== src) {
             console.log('Updating video source to:', src); // Debug log
-            videoElement.setAttribute('src', src);
 
-            // Reload and play the video with new source
+            // Pause the video first
+            videoElement.pause();
+
+            // Set the new source
+            videoElement.setAttribute('src', src);
+            videoElement.src = src; // Set both ways for better compatibility
+
+            // Force reload
             videoElement.load();
-            videoElement.play().catch(err => {
-              console.warn("Autoplay blocked:", err);
-            });
+
+            // Try to play, but don't worry if it fails
+            const playPromise = videoElement.play();
+            if (playPromise !== undefined) {
+              playPromise.then(() => {
+                console.log('Video playing successfully');
+              }).catch(err => {
+                console.log("Autoplay blocked or failed:", err);
+                // Video will still be loaded with correct src, just not playing
+              });
+            }
           }
         }
       }
     }
   }
 }
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', homepageHero);
+} else {
+  homepageHero();
+}
+
+// Optional: run again on resize
+let resizeTimeout;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    homepageHero();
+  }, 250); // Debounce resize calls
+});
 document.addEventListener('DOMContentLoaded', function () {
   // query #home_hero
 
   const home = document.querySelector('body.home') ? true : false;
   if (home) {
     homepageHero();
-
-    // Optional: run again on resize
-    window.addEventListener('resize', homepageHero);
 
     // Initialize your Swipers
     const servicesContentSwiper = new Swiper('.services_slider_content .swiper', {

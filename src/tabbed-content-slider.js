@@ -7,35 +7,34 @@ function homepageHero() {
     const dataVideoLg = hero.getAttribute('data-video-lg');
     const dataVideoSm = hero.getAttribute('data-video-sm');
 
+    // Use existing video container
     const existingVideoContainer = hero.querySelector('.kb-blocks-bg-video-container');
 
-    if (!existingVideoContainer) {
-      const videoContainer = document.createElement('div');
-      videoContainer.classList.add('kb-blocks-bg-video-container');
-      hero.prepend(videoContainer);
+    if (existingVideoContainer) {
+      const videoElement = existingVideoContainer.querySelector('.kb-blocks-bg-video');
+      
+      if (videoElement) {
+        // Determine which source to use based on screen size
+        const src = windowWidth > 500 && dataVideoLg ? dataVideoLg : dataVideoSm;
 
-      const videoElement = document.createElement('video');
-      videoElement.classList.add('kb-blocks-bg-video');
-      videoElement.setAttribute('autoplay', 'autoplay');
-      videoElement.setAttribute('muted', 'muted');
-      videoElement.setAttribute('loop', 'loop');
-      videoElement.setAttribute('playsinline', '');
-      videoContainer.appendChild(videoElement);
+        console.log('Window width:', windowWidth, 'Selected src:', src); // Debug log
 
-      // pick correct source
-      const src = windowWidth < 768 && dataVideoSm ? dataVideoSm : dataVideoLg;
-
-      if (src) {
-        const sourceElement = document.createElement('source');
-        sourceElement.setAttribute('src', src);
-        sourceElement.setAttribute('type', 'video/mp4');
-        videoElement.appendChild(sourceElement);
-
-        // Ensure the video reloads and tries to autoplay
-        videoElement.load();
-        videoElement.play().catch(err => {
-          console.warn("Autoplay blocked:", err);
-        });
+        if (src) {
+          const currentSrc = videoElement.getAttribute('src');
+          console.log('Current src:', currentSrc, 'New src:', src); // Debug log
+          
+          // Only update if the source has changed
+          if (currentSrc !== src) {
+            console.log('Updating video source to:', src); // Debug log
+            videoElement.setAttribute('src', src);
+            
+            // Reload and play the video with new source
+            videoElement.load();
+            videoElement.play().catch(err => {
+              console.warn("Autoplay blocked:", err);
+            });
+          }
+        }
       }
     }
   }
@@ -50,11 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if(home){
 
-    //setTimeout( function(){
       homepageHero();
-    ///}, 1000);
 
-  
+
     // Optional: run again on resize
     window.addEventListener('resize', homepageHero);
 

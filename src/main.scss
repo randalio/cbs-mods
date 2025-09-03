@@ -246,14 +246,14 @@ body{
 
 
 .hero{
-	&-100svh{
+	// &-100svh{
 
-		@media screen and (max-width: 1024px){
-			min-height: 100svh !important;
-			max-height: 100svh !important;
-		}
+	// 	@media screen and (max-width: 1024px){
+	// 		min-height: 100svh !important;
+	// 		max-height: 100svh !important;
+	// 	}
 		
-	}
+	// }
 
 	&-animated{
 

@@ -186,12 +186,6 @@ body .arrow-section .arrow-section--content .wp-block-kadence-iconlist {
     transform: translateY(0);
   }
 }
-@media screen and (max-width: 1024px) {
-  .hero-100svh {
-    min-height: 100svh !important;
-    max-height: 100svh !important;
-  }
-}
 .hero-animated .eyebrow {
   opacity: 0;
   animation: fadeInUp 0.5s ease;

@@ -420,9 +420,6 @@ body .tabbed-content-slider{
 			z-index: 9;
 
 			
-				
-			
-			
 		}
 
 	}
@@ -434,124 +431,7 @@ body .tabbed-content-slider{
 		text-align: left !important;
 	}
 
-	& .swiper-slide {
-		background-color: var(--global-palette8);
-	  
-		/* Default state for all content elements */
-		& h2,
-		& p.wp-block-kadence-advancedheading,
-		& ul {
-		  opacity: 0;
-		  transition: all 0.5s ease 0s;
-		  
-		  /* Mobile: slide in from left */
-		  @media screen and (max-width: 1023px) {
-			transform: translateX(-100%);
-		  }
-		  
-		  /* Desktop: slide in from bottom */
-		  @media screen and (min-width: 1024px) {
-			transform: translateY(2rem);
-		  }
-		}
-	  
-		/* Specific styling for h2 */
-		& h2 {
-		  @media screen and (max-width: 1023px) {
-			font-size: 26px !important;
-		  }
-	  
-		  & mark.has-theme-palette-3-color {
-			font-size: 30px;
-			font-weight: 400;
-			vertical-align: middle;
-			letter-spacing: -0.3px;
-			line-height: 48px;
-			margin-right: 1rem;
-			padding-bottom: 3px;
-	  
-			@media screen and (max-width: 1023px) {
-			  display: none;
-			}
-		  }
-		}
-	  
-		/* Active slide - content slides in with cascade effect */
-		&-active {
-		  & h2 {
-			opacity: 1;
-			transform: translateX(0);
-			transition: all 0.5s ease 0.2s; /* Same timing on mobile */
-			
-			@media screen and (min-width: 1024px) {
-			  transform: translateY(0);
-			  transition: all 0.5s ease 0.2s; /* First element on desktop */
-			}
-		  }
-	  
-		  & p.wp-block-kadence-advancedheading {
-			opacity: 1;
-			transform: translateX(0);
-			transition: all 0.5s ease 0.2s; /* Same timing on mobile */
-			
-			@media screen and (min-width: 1024px) {
-			  transform: translateY(0);
-			  transition: all 0.5s ease 0.4s; /* Second element on desktop */
-			}
-		  }
-	  
-		  & ul {
-			opacity: 1;
-			transform: translateX(0);
-			transition: all 0.5s ease 0.2s; /* Same timing on mobile */
-			
-			@media screen and (min-width: 1024px) {
-			  transform: translateY(0);
-			  transition: all 0.5s ease 0.6s; /* Third element on desktop */
-			}
-		  }
-		}
-	  
-		/* Previous slide - content slides out to the left */
-		&-prev {
-		  & h2,
-		  & p.wp-block-kadence-advancedheading,
-		  & ul {
-			opacity: 0; /* Make sure it fades out */
-			transition: all 0.3s ease 0s; /* Faster exit animation */
-			
-			@media screen and (max-width: 1023px) {
-			  transform: translateX(-100%);
-			}
-			
-			@media screen and (min-width: 1024px) {
-			  transform: translateY(2rem); /* Back to hidden position */
-			  opacity: 0;
-			  transition: all 0.5s ease 0.7s;
-			}
-		  }
-		}
-	  
-		/* Next slide - content slides out to the right */
-		&-next {
-		  & h2,
-		  & p.wp-block-kadence-advancedheading,
-		  & ul {
-			opacity: 0; /* Make sure it fades out */
-			transition: all 0.3s ease 0s; /* Faster exit animation */
-			
-			@media screen and (max-width: 1023px) {
-			  transform: translateX(100%);
-			}
-			
-			@media screen and (min-width: 1024px) {
-			  transform: translateY(2rem); /* Back to hidden position */
-			  opacity: 0;
-			  transition: all 0.5s ease 0.7s;
-			}
-		  }
-		}
-	  }
+
 
 	& .industries_slider_content{
 
@@ -562,12 +442,158 @@ body .tabbed-content-slider{
 			}
 		}
 
+		& .kb-buttons-wrap{
+			@media screen and (min-width: 1023px){
+				display: none;
+			}
+		}
+
 		& *{
 			
 			@media screen and (max-width: 1024px){
 				color: var(--global-palette3);
 			}
 		}
+
+
+
+		& .swiper-slide {
+			background-color: var(--global-palette8);
+			opacity: 0 !important;
+			overflow: visible; /* Prevent clipping of content */
+		  
+			/* Default state for all content elements */
+			& h2,
+			& p.wp-block-kadence-advancedheading,
+			& ul,
+			& .kb-buttons-wrap {
+			  opacity: 0;
+			  transition: all 0.5s ease 0s;
+			  
+			  /* Mobile: slide in from left */
+			  @media screen and (max-width: 1023px) {
+				transform: translateX(-100%);
+			  }
+			  
+			  /* Desktop: slide in from bottom */
+			  @media screen and (min-width: 1024px) {
+				transform: translateY(2rem);
+			  }
+			}
+		  
+			/* Specific styling for h2 */
+			& h2 {
+			  @media screen and (max-width: 1023px) {
+				font-size: 26px !important;
+			  }
+		  
+			  & mark.has-theme-palette-3-color {
+				font-size: 30px;
+				font-weight: 400;
+				vertical-align: middle;
+				letter-spacing: -0.3px;
+				line-height: 48px;
+				margin-right: 1rem;
+				padding-bottom: 3px;
+		  
+				@media screen and (max-width: 1023px) {
+				  display: none;
+				}
+			  }
+			}
+		  
+			/* Active slide - content slides in with cascade effect */
+			&-active {
+				opacity: 1 !important;
+		
+			  & h2 {
+				opacity: 1;
+				transform: translateX(0);
+				transition: all 0.5s ease 0.2s; /* Same timing on mobile */
+				
+				@media screen and (min-width: 1024px) {
+				  transform: translateY(0);
+				  transition: all 0.5s ease 0.2s; /* First element on desktop */
+				}
+			  }
+		  
+			  & p.wp-block-kadence-advancedheading {
+				opacity: 1;
+				transform: translateX(0);
+				transition: all 0.5s ease 0.2s; /* Same timing on mobile */
+				
+				@media screen and (min-width: 1024px) {
+				  transform: translateY(0);
+				  transition: all 0.5s ease 0.4s; /* Second element on desktop */
+				}
+			  }
+		  
+			  & ul {
+				opacity: 1;
+				transform: translateX(0);
+				transition: all 0.5s ease 0.2s; /* Same timing on mobile */
+				
+				@media screen and (min-width: 1024px) {
+				  transform: translateY(0);
+				  transition: all 0.5s ease 0.6s; /* Third element on desktop */
+				}
+			  }
+		
+			  & .kb-buttons-wrap {
+				opacity: 1;
+				transform: translateX(0);
+				transition: all 0.5s ease 0.2s; /* Same timing on mobile */
+				
+				@media screen and (min-width: 1024px) {
+				  transform: translateY(0);
+				  transition: all 0.5s ease 0.8s; /* Fourth element on desktop */
+				}
+			  }
+			}
+		  
+			/* Previous slide - content slides out to the left */
+			&-prev {
+			  & h2,
+			  & p.wp-block-kadence-advancedheading,
+			  & ul,
+			  & .kb-buttons-wrap {
+				opacity: 0; /* Make sure it fades out */
+				transition: all 0.3s ease 0s; /* Faster exit animation */
+				
+				@media screen and (max-width: 1023px) {
+				  transform: translateX(-100%);
+				}
+				
+				@media screen and (min-width: 1024px) {
+				  transform: translateY(2rem); /* Back to hidden position */
+				  opacity: 0;
+				  transition: all 0.5s ease 0.7s;
+				}
+			  }
+			}
+		  
+			/* Next slide - content slides out to the right */
+			&-next {
+			  & h2,
+			  & p.wp-block-kadence-advancedheading,
+			  & ul,
+			  & .kb-buttons-wrap {  /* Fixed: was .kb-button-wrap, now matches the correct class */
+				opacity: 0; /* Make sure it fades out */
+				transition: all 0.3s ease 0s; /* Faster exit animation */
+				
+				@media screen and (max-width: 1023px) {
+				  transform: translateX(100%);
+				}
+				
+				@media screen and (min-width: 1024px) {
+				  transform: translateY(2rem); /* Back to hidden position */
+				  opacity: 0;
+				  transition: all 0.5s ease 0.7s;
+				}
+			  }
+			}
+		}
+
 
 	}
 
@@ -580,9 +606,9 @@ body .tabbed-content-slider{
 
 	& .industries_slider_cta_buttons_mobile{
 
-		@media screen and (min-width: 1024px){
-			display: none !important;
-		}
+		// @media screen and (min-width: 1024px){
+		// 	display: none !important;
+		// }
 	}
 
 	& .services_slider_image{

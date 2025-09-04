@@ -145,12 +145,12 @@ document.addEventListener('DOMContentLoaded', function() {
             allowTouchMove: false,
           });
     
-          const industriesCtaButtonSwiperMobile = new Swiper('.industries_slider_cta_buttons_mobile .swiper', {
-            loop: false,
-            speed: 500,
-            effect: "slide",
-            allowTouchMove: false,
-          });
+          // const industriesCtaButtonSwiperMobile = new Swiper('.industries_slider_cta_buttons_mobile .swiper', {
+          //   loop: false,
+          //   speed: 500,
+          //   effect: "slide",
+          //   allowTouchMove: false,
+          // });
         
           //console.log('[CustomSlider] Swipers initialized:', industriesContentSwiper, industriesCtaButtonSwiper);
         
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
               // Go to the matching slide in both Swipers
               industriesContentSwiper.slideTo(index);
               industriesCtaButtonSwiper.slideTo(index);
-              industriesCtaButtonSwiperMobile.slideTo(index);
+              //industriesCtaButtonSwiperMobile.slideTo(index);
         
               // Active state handling
               industriesButtons.forEach(btn => btn.classList.remove('active'));

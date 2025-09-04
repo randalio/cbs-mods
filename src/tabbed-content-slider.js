@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const industriesCtaButtonSwiperMobile = new Swiper('.industries_slider_cta_buttons_mobile .swiper', {
             loop: false,
             speed: 500,
-            effect: "fade",
+            effect: "slide",
             allowTouchMove: false,
           });
         

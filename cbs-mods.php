@@ -103,52 +103,32 @@ function enqueue_cbs_mods_slider_js() {
 add_action( 'wp_enqueue_scripts', 'enqueue_cbs_mods_slider_js' );
 
 
+add_filter( 'kadence_blocks_pro_query_loop_query_vars', function( $query, $ql_query_meta, $ql_id ) {
 
+    if ( $ql_id == 9858 ) {
+        $current_team_member_id = get_the_ID();
+        $linked_author = get_users(array(
+            'meta_query' => array(
+                array(
+                    'meta_key' => 'link_to_team_member', // ACF field name
+                    'value'   => $current_team_member_id,
+                    'compare' => 'LIKE'
+                )
+            ),
+            'number' => 1,
+            'fields' => 'ID'
+        ));
+        
+        if ( !empty($linked_author) ) {
+            $query['author'] = $linked_author[0];
+            $query['post_type'] = 'post';
+        } else {
+            $query['post__in'] = array(0); // No results
+        }
 
-
-// Add this to your theme's functions.php or a custom plugin
-
-function rename_posts_to_blog_posts() {
-    global $wp_post_types;
-    $labels = &$wp_post_types['post']->labels;
+    }
     
-    $labels->name = 'Blog Posts';
-    $labels->singular_name = 'Blog Post';
-    $labels->add_new = 'Add Blog Post';
-    $labels->add_new_item = 'Add New Blog Post';
-    $labels->edit_item = 'Edit Blog Post';
-    $labels->new_item = 'New Blog Post';
-    $labels->view_item = 'View Blog Post';
-    $labels->search_items = 'Search Blog Posts';
-    $labels->not_found = 'No Blog Posts found';
-    $labels->not_found_in_trash = 'No Blog Posts found in Trash';
-    $labels->all_items = 'All Blog Posts';
-    $labels->menu_name = 'Blog Posts';
-    $labels->name_admin_bar = 'Blog Post';
-}
-add_action('init', 'rename_posts_to_blog_posts');
+    return $query;
+ }, 10, 3 );
 
-// Also update the menu label
-function rename_posts_menu_label() {
-    global $menu;
-    global $submenu;
-    
-    $menu[5][0] = 'Blog Posts';
-    $submenu['edit.php'][5][0] = 'All Blog Posts';
-    $submenu['edit.php'][10][0] = 'Add Blog Post';
-}
-add_action('admin_menu', 'rename_posts_menu_label');
-
-
-
-add_filter('wpswiper_frontend_js_register_args', function($args) {
-    // Modify script dependencies
-    $args['deps'] = ['wpswiper-bundle', 'jquery', 'cbs-mods-slider-js'];
-
-    // Specify an additional loading strategy, such as async or defer
-    $args['args'] = ['in_footer' => false, 'strategy' => 'defer']; // Options: 'async' or 'defer'
-
-    return $args;
-}, 20); // Higher priority number
-
-
+?>

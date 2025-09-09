@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CBS Mods
  * Description: 
- * Version: 1.5
+ * Version: 1.6
  * Author: Randal Pope
  */
 
@@ -102,7 +102,6 @@ function enqueue_cbs_mods_slider_js() {
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_cbs_mods_slider_js' );
 
-
 add_filter( 'kadence_blocks_pro_query_loop_query_vars', function( $query, $ql_query_meta, $ql_id ) {
 
     if ( $ql_id == 9858 ) {
@@ -120,15 +119,36 @@ add_filter( 'kadence_blocks_pro_query_loop_query_vars', function( $query, $ql_qu
         ));
         
         if ( !empty($linked_author) ) {
-            $query['author'] = $linked_author[0];
-            $query['post_type'] = 'post';
+            $author_id = $linked_author[0];
+            
+            // Check if this author actually has posts
+            $author_posts = get_posts(array(
+                'author' => $author_id,
+                'post_type' => 'post',
+                'post_status' => 'publish',
+                'numberposts' => 1,
+                'fields' => 'ids'
+            ));
+            
+            if ( !empty($author_posts) ) {
+                // Author has posts, filter by author
+                $query['author'] = $author_id;
+                $query['post_type'] = 'post';
+            } else {
+                // Author has no posts, show all posts
+                $query['post_type'] = 'post';
+                // Explicitly remove any author filtering
+                unset($query['author']);
+            }
         } else {
-            $query['post__in'] = array(0); // No results
+            // No linked author found, show all posts
+            $query['post_type'] = 'post';
+            // Explicitly remove any author filtering
+            unset($query['author']);
         }
-
     }
     
     return $query;
- }, 10, 3 );
+}, 10, 3 );
 
 ?>

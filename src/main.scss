@@ -154,6 +154,12 @@ body li.kadence-menu-mega-enabled:hover .mega-menu-row-layout{
 }
 
 
+body .kb-header-sticky-wrapper .kadence-menu-mega-enabled>ul.kb-nav-sub-menu.mega-menu>.kb-row-layout-wrap .kt-row-column-wrap,
+body .kadence-menu-mega-enabled>ul.kb-nav-sub-menu.mega-menu>.kb-row-layout-wrap .wp-block-kadence-navigation-link .link-media-container{
+	overflow: visible !important;
+}
+
+
 
 
 body{

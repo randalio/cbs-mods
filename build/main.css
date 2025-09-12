@@ -136,6 +136,11 @@ body li.kadence-menu-mega-enabled:hover .mega-menu-row-layout {
   transition: all 0.4s ease;
 }
 
+body .kb-header-sticky-wrapper .kadence-menu-mega-enabled > ul.kb-nav-sub-menu.mega-menu > .kb-row-layout-wrap .kt-row-column-wrap,
+body .kadence-menu-mega-enabled > ul.kb-nav-sub-menu.mega-menu > .kb-row-layout-wrap .wp-block-kadence-navigation-link .link-media-container {
+  overflow: visible !important;
+}
+
 @media screen and (min-width: 767px) {
   body .arrow-section {
     max-width: 100%;

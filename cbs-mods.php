@@ -117,6 +117,7 @@ function custom_email_domain_block($result, $value, $form, $field) {
 }
 add_filter('gform_field_validation_2_3', 'custom_email_domain_block', 10, 4);
 
+
 // custom queries
 add_filter( 'kadence_blocks_pro_query_loop_query_vars', function( $query, $ql_query_meta, $ql_id ) {
 
@@ -166,5 +167,368 @@ add_filter( 'kadence_blocks_pro_query_loop_query_vars', function( $query, $ql_qu
     
     return $query;
 }, 10, 3 );
+
+
+add_action( 'acf/include_fields', function() {
+	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+		return;
+	}
+
+	acf_add_local_field_group( array(
+	'key' => 'group_690a7990a6248',
+	'title' => 'Global Scripts',
+	'fields' => array(
+		array(
+			'key' => 'field_690a7a0ecc59d',
+			'label' => 'Head Scripts',
+			'name' => '',
+			'aria-label' => '',
+			'type' => 'tab',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'placement' => 'top',
+			'endpoint' => 0,
+			'selected' => 0,
+		),
+		array(
+			'key' => 'field_690a7991e19f8',
+			'label' => 'Head Scripts',
+			'name' => 'head_scripts',
+			'aria-label' => '',
+			'type' => 'textarea',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'maxlength' => '',
+			'allow_in_bindings' => 0,
+			'rows' => 36,
+			'placeholder' => '',
+			'new_lines' => '',
+		),
+		array(
+			'key' => 'field_690a7a2dcc59e',
+			'label' => 'Body Scripts',
+			'name' => '',
+			'aria-label' => '',
+			'type' => 'tab',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'placement' => 'top',
+			'endpoint' => 0,
+			'selected' => 0,
+		),
+		array(
+			'key' => 'field_690a79ebe19fb',
+			'label' => 'Body Scripts',
+			'name' => 'body_scripts',
+			'aria-label' => '',
+			'type' => 'textarea',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'maxlength' => '',
+			'allow_in_bindings' => 0,
+			'rows' => 36,
+			'placeholder' => '',
+			'new_lines' => '',
+		),
+		array(
+			'key' => 'field_690a7a3ecc59f',
+			'label' => 'Footer Scripts',
+			'name' => '',
+			'aria-label' => '',
+			'type' => 'tab',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'placement' => 'top',
+			'endpoint' => 0,
+			'selected' => 0,
+		),
+		array(
+			'key' => 'field_690a79dce19f9',
+			'label' => 'Footer Scripts',
+			'name' => 'footer_scripts',
+			'aria-label' => '',
+			'type' => 'textarea',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'maxlength' => '',
+			'allow_in_bindings' => 0,
+			'rows' => 36,
+			'placeholder' => '',
+			'new_lines' => '',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'options_page',
+				'operator' => '==',
+				'value' => 'header-footer-scripts',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => true,
+	'description' => '',
+	'show_in_rest' => 0,
+	'display_title' => '',
+) );
+
+	acf_add_local_field_group( array(
+	'key' => 'group_690a86c65e680',
+	'title' => 'Page Scripts',
+	'fields' => array(
+		array(
+			'key' => 'field_690a86c665bd6',
+			'label' => 'Head Scripts',
+			'name' => '',
+			'aria-label' => '',
+			'type' => 'tab',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'placement' => 'top',
+			'endpoint' => 0,
+			'selected' => 0,
+		),
+		array(
+			'key' => 'field_690a86c665c48',
+			'label' => 'Head Scripts',
+			'name' => 'page_head_scripts',
+			'aria-label' => '',
+			'type' => 'textarea',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'maxlength' => '',
+			'allow_in_bindings' => 0,
+			'rows' => '',
+			'placeholder' => '',
+			'new_lines' => '',
+		),
+		array(
+			'key' => 'field_690a86c665c98',
+			'label' => 'Body Scripts',
+			'name' => '',
+			'aria-label' => '',
+			'type' => 'tab',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'placement' => 'top',
+			'endpoint' => 0,
+			'selected' => 0,
+		),
+		array(
+			'key' => 'field_690a86c665d26',
+			'label' => 'Body Scripts',
+			'name' => 'page_body_scripts',
+			'aria-label' => '',
+			'type' => 'textarea',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'maxlength' => '',
+			'allow_in_bindings' => 0,
+			'rows' => '',
+			'placeholder' => '',
+			'new_lines' => '',
+		),
+		array(
+			'key' => 'field_690a86c665d7b',
+			'label' => 'Footer Scripts',
+			'name' => '',
+			'aria-label' => '',
+			'type' => 'tab',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'placement' => 'top',
+			'endpoint' => 0,
+			'selected' => 0,
+		),
+		array(
+			'key' => 'field_690a86c665db9',
+			'label' => 'Footer Scripts',
+			'name' => 'page_footer_scripts',
+			'aria-label' => '',
+			'type' => 'textarea',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'maxlength' => '',
+			'allow_in_bindings' => 0,
+			'rows' => '',
+			'placeholder' => '',
+			'new_lines' => '',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'page',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => true,
+	'description' => '',
+	'show_in_rest' => 0,
+	'display_title' => '',
+) );
+} );
+
+add_action( 'acf/init', function() {
+	acf_add_options_page( array(
+	'page_title' => 'Scripts',
+	'menu_slug' => 'header-footer-scripts',
+	'position' => '',
+	'redirect' => false,
+	'menu_icon' => array(
+		'type' => 'dashicons',
+		'value' => 'dashicons-editor-code',
+	),
+	'icon_url' => 'dashicons-editor-code',
+) );
+} );
+
+
+
+
+/**
+ * Insert custom text/code into the WordPress head section
+ */
+function insert_custom_head_content() {
+
+    $head_scripts = get_field('head_scripts', 'option');
+    $page_head_scripts = get_field('page_head_scripts', get_the_ID() );
+
+
+    if ($head_scripts) {
+        echo $head_scripts;
+        echo "\n";
+        echo $page_head_scripts;
+    }
+}
+add_action('wp_head', 'insert_custom_head_content');
+
+
+/**
+ * Insert custom text/code after the opening body tag
+ */
+function insert_custom_body_content() {
+    $body_scripts = get_field('body_scripts', 'option');
+    $page_body_scripts = get_field('page_body_scripts', get_the_ID() );
+    if ($body_scripts) {
+        echo $body_scripts;
+        echo "\n";
+        echo $page_body_scripts;
+    }
+}
+add_action('wp_body_open', 'insert_custom_body_content');
+
+
+/**
+ * Insert custom text/code into the WordPress footer
+ */
+function insert_custom_footer_content() {
+    $footer_scripts = get_field('footer_scripts', 'option');
+    $page_footer_scripts = get_field('page_body_scripts', get_the_ID() );
+    if ($footer_scripts) {
+        echo $footer_scripts;
+        echo "\n";
+        echo $page_footer_scripts;
+    }
+}
+add_action('wp_footer', 'insert_custom_footer_content');
+
+
+
+
+
+
 
 ?>

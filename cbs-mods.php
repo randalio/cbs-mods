@@ -102,6 +102,22 @@ function enqueue_cbs_mods_slider_js() {
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_cbs_mods_slider_js' );
 
+
+// GravityForms_ContactUs_DomainBlocker
+function custom_email_domain_block($result, $value, $form, $field) {
+    $blocked_domains = array('baddomain.com', 'ptengert.net', 'iubridge.com');
+    $email_domain = substr(strrchr($value, "@"), 1);
+
+    if (in_array(strtolower($email_domain), $blocked_domains)) {
+        $result['is_valid'] = false;
+        $result['message'] = 'Email addresses from this domain are not allowed.';
+    }
+
+    return $result;
+}
+add_filter('gform_field_validation_2_3', 'custom_email_domain_block', 10, 4);
+
+// custom queries
 add_filter( 'kadence_blocks_pro_query_loop_query_vars', function( $query, $ql_query_meta, $ql_id ) {
 
     if ( $ql_id == 9858 ) {

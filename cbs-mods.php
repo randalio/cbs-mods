@@ -462,6 +462,11 @@ add_action( 'acf/include_fields', function() {
 } );
 
 add_action( 'acf/init', function() {
+
+    if ( ! function_exists( 'acf_add_options_page' ) ) {
+		return;
+	}
+
 	acf_add_options_page( array(
 	'page_title' => 'Scripts',
 	'menu_slug' => 'header-footer-scripts',
@@ -483,6 +488,10 @@ add_action( 'acf/init', function() {
  */
 function insert_custom_head_content() {
 
+    if ( ! function_exists( 'get_field' ) ) {
+		return;
+	}
+
     $head_scripts = get_field('head_scripts', 'option');
     $page_head_scripts = get_field('page_head_scripts', get_the_ID() );
 
@@ -500,6 +509,11 @@ add_action('wp_head', 'insert_custom_head_content');
  * Insert custom text/code after the opening body tag
  */
 function insert_custom_body_content() {
+
+    if ( ! function_exists( 'get_field' ) ) {
+		return;
+	}
+
     $body_scripts = get_field('body_scripts', 'option');
     $page_body_scripts = get_field('page_body_scripts', get_the_ID() );
     if ($body_scripts) {
@@ -515,6 +529,11 @@ add_action('wp_body_open', 'insert_custom_body_content');
  * Insert custom text/code into the WordPress footer
  */
 function insert_custom_footer_content() {
+
+    if ( ! function_exists( 'get_field' ) ) {
+		return;
+	}
+
     $footer_scripts = get_field('footer_scripts', 'option');
     $page_footer_scripts = get_field('page_body_scripts', get_the_ID() );
     if ($footer_scripts) {

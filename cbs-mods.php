@@ -462,6 +462,11 @@ add_action( 'acf/include_fields', function() {
 } );
 
 add_action( 'acf/init', function() {
+
+    if ( ! function_exists( 'acf_add_options_page' ) ) {
+		return;
+	}
+
 	acf_add_options_page( array(
 	'page_title' => 'Scripts',
 	'menu_slug' => 'header-footer-scripts',

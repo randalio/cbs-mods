@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CBS Mods
  * Description: 
- * Version: 1.6
+ * Version: 1.7
  * Author: Randal Pope
  */
 

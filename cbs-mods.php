@@ -482,68 +482,65 @@ add_action( 'acf/init', function() {
 
 
 
-
 /**
  * Insert custom text/code into the WordPress head section
  */
 function insert_custom_head_content() {
-
     $head_scripts = get_field('head_scripts', 'option');
-    $page_head_scripts = get_field('page_head_scripts', get_the_ID() );
+    $page_head_scripts = get_field('page_head_scripts', get_the_ID());
 
-
-    if ($head_scripts) {
+    if ($head_scripts || $page_head_scripts) {
         echo '<!-- Custom Head Scripts -->' . "\n";
-        echo $head_scripts;
-        echo "\n";
-        echo $page_head_scripts;
+        
+        if ($head_scripts) {
+            echo $head_scripts . "\n";
+        }
+        
+        if ($page_head_scripts) {
+            echo $page_head_scripts . "\n";
+        }
+        
         echo '<!-- End Custom Head Scripts -->' . "\n";
     }
 }
-
-
 
 /**
  * Insert custom text/code after the opening body tag
  */
 function insert_custom_body_content() {
-
     $body_scripts = get_field('body_scripts', 'option');
-    $page_body_scripts = get_field('page_body_scripts', get_the_ID() );
+    $page_body_scripts = get_field('page_body_scripts', get_the_ID());
+    
     if ($body_scripts) {
-        echo $body_scripts;
-        echo "\n";
-        echo $page_body_scripts;
+        echo $body_scripts . "\n";
+    }
+    
+    if ($page_body_scripts) {
+        echo $page_body_scripts . "\n";
     }
 }
-
-
 
 /**
  * Insert custom text/code into the WordPress footer
  */
 function insert_custom_footer_content() {
-
     $footer_scripts = get_field('footer_scripts', 'option');
-    $page_footer_scripts = get_field('page_body_scripts', get_the_ID() );
+    $page_footer_scripts = get_field('page_footer_scripts', get_the_ID()); // Fixed: was 'page_body_scripts'
+    
     if ($footer_scripts) {
-        echo $footer_scripts;
-        echo "\n";
-        echo $page_footer_scripts;
+        echo $footer_scripts . "\n";
+    }
+    
+    if ($page_footer_scripts) {
+        echo $page_footer_scripts . "\n";
     }
 }
 
-
-
-if( is_plugin_active('advanced-custom-fields-pro/acf.php') ){
-    // ACF Pro is active
+if (is_plugin_active('advanced-custom-fields-pro/acf.php')) {
     add_action('wp_head', 'insert_custom_head_content');
     add_action('wp_body_open', 'insert_custom_body_content');
     add_action('wp_footer', 'insert_custom_footer_content');
 }
-
-
-
 
 
 ?>

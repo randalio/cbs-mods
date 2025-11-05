@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CBS Mods
  * Description: 
- * Version: 1.6
+ * Version: 1.7
  * Author: Randal Pope
  */
 
@@ -497,9 +497,11 @@ function insert_custom_head_content() {
 
 
     if ($head_scripts) {
+        echo '<!-- Custom Head Scripts -->' . "\n";
         echo $head_scripts;
         echo "\n";
         echo $page_head_scripts;
+        echo '<!-- End Custom Head Scripts -->' . "\n";
     }
 }
 add_action('wp_head', 'insert_custom_head_content');

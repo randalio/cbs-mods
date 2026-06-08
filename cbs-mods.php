@@ -543,7 +543,7 @@ if (is_plugin_active('advanced-custom-fields-pro/acf.php')) {
 }
 
 
-
+// Ensure that Blog Posts Load in Advanced Query Lop
 add_filter( 'rest_authentication_errors', function( $result ) {
     $route = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '';
     if ( strpos( $route, '/wp-json/wp/v2/kadence_query/query' ) !== false ) {

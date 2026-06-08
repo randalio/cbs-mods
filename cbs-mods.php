@@ -612,6 +612,87 @@ function sjld_person_id( $team_member_id ) {
 }
  
 /**
+ * Normalise any ACF return value into a single post ID.
+ * Handles every relevant ACF "Return Format":
+ *   - Page Link field  -> URL string (or array of URL strings)
+ *   - Post Object      -> WP_Post (or array form keyed by 'ID')
+ *   - Post ID          -> int / numeric string
+ *   - Relationship     -> array of any of the above
+ */
+function sjld_resolve_post_id( $value ) {
+	if ( empty( $value ) ) {
+		return 0;
+	}
+ 
+	// Single WP_Post object.
+	if ( $value instanceof WP_Post ) {
+		return (int) $value->ID;
+	}
+ 
+	// Scalar: could be a numeric ID, or a URL (ACF Page Link field).
+	if ( is_string( $value ) || is_numeric( $value ) ) {
+		$value = trim( (string) $value );
+		if ( $value === '' ) {
+			return 0;
+		}
+		if ( ctype_digit( $value ) ) {
+			return (int) $value;
+		}
+		// Treat as a URL: resolve the permalink back to a post ID.
+		$id = url_to_postid( $value );
+		return (int) $id; // 0 if it cannot be resolved
+	}
+ 
+	if ( is_array( $value ) ) {
+		// Post-object array form: ['ID' => 123, 'post_title' => ...].
+		if ( isset( $value['ID'] ) ) {
+			return (int) $value['ID'];
+		}
+		// Relationship / multi Page Link: take the first element and resolve it.
+		$first = reset( $value );
+		return sjld_resolve_post_id( $first );
+	}
+ 
+	return 0;
+}
+ 
+/**
+ * Extract a usable URL from an ACF value, primarily for Page Link fields.
+ * Returns '' if no URL can be derived.
+ */
+function sjld_resolve_url( $value ) {
+	if ( empty( $value ) ) {
+		return '';
+	}
+ 
+	if ( $value instanceof WP_Post ) {
+		return (string) get_permalink( $value->ID );
+	}
+ 
+	if ( is_string( $value ) ) {
+		$value = trim( $value );
+		// A Page Link returns a URL; a numeric string is an ID we can map to a permalink.
+		if ( ctype_digit( $value ) ) {
+			return (string) get_permalink( (int) $value );
+		}
+		return filter_var( $value, FILTER_VALIDATE_URL ) ? esc_url_raw( $value ) : '';
+	}
+ 
+	if ( is_numeric( $value ) ) {
+		return (string) get_permalink( (int) $value );
+	}
+ 
+	if ( is_array( $value ) ) {
+		if ( isset( $value['ID'] ) ) {
+			return (string) get_permalink( (int) $value['ID'] );
+		}
+		return sjld_resolve_url( reset( $value ) );
+	}
+ 
+	return '';
+}
+ 
+/**
  * Best-effort first/last name split from a display title.
  * Keeps any trailing credential suffix (e.g. "CPA, CGMA") out of the family name.
  */
@@ -782,22 +863,22 @@ function sjld_build_blogposting_schema( $post_id ) {
  
 	// --- Resolve author: ACF link_to_team_member, "both linked together" ---
 	$author_node = null;
-	$tm = function_exists( 'get_field' )
+	$tm_raw = function_exists( 'get_field' )
 		? get_field( BLOG_AUTHOR_ACF_FIELD, $post_id )
 		: get_post_meta( $post_id, BLOG_AUTHOR_ACF_FIELD, true );
  
-	// ACF may return a WP_Post, an ID, or an array of either.
-	if ( is_array( $tm ) ) {
-		$tm = reset( $tm );
-	}
-	if ( $tm instanceof WP_Post ) {
-		$tm = $tm->ID;
-	}
-	$tm = (int) $tm;
+	$tm      = sjld_resolve_post_id( $tm_raw );
+	$tm_url  = sjld_resolve_url( $tm_raw ); // raw Page Link URL, if any
  
 	if ( $tm ) {
-		// Embed a reference; the full Person node lives in the @graph too (see output fn).
+		// Full Person node lives in the @graph; embed a reference here.
 		$author_node = sjld_build_person_schema( $tm, true );
+	} elseif ( $tm_url ) {
+		// ID could not be resolved (e.g. CPT permalink), but we still have the URL.
+		$author_node = array(
+			'@type' => 'Person',
+			'url'   => $tm_url,
+		);
 	} else {
 		// Fallback to native WP author.
 		$author_node = array(
@@ -912,8 +993,4 @@ function sjld_output_schema() {
 		return;
 	}
 }
-
-
-
-
-?>
+ 

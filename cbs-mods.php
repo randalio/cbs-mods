@@ -565,7 +565,7 @@ if ( ! defined( 'SITE_SCHEMA_BASE' ) ) {
  
 /* Adjust these to match your registered post type + ACF field names */
 if ( ! defined( 'TEAM_MEMBER_POST_TYPE' ) ) {
-	define( 'TEAM_MEMBER_POST_TYPE', 'team_member' );
+	define( 'TEAM_MEMBER_POST_TYPE', 'team-member' );
 }
 if ( ! defined( 'BLOG_AUTHOR_ACF_FIELD' ) ) {
 	define( 'BLOG_AUTHOR_ACF_FIELD', 'link_to_team_member' );
@@ -1007,6 +1007,17 @@ function sjld_print_jsonld( $data ) {
 add_action( 'wp_head', 'sjld_output_schema', 20 );
 function sjld_output_schema() {
  
+	// Debug: fires on every page load (admins only) to confirm this code runs at all,
+	// and to reveal the detected post type vs the configured constant.
+	if ( isset( $_GET['sjld_debug'] ) && current_user_can( 'manage_options' ) ) {
+		$detected = is_singular() ? get_post_type( get_queried_object_id() ) : '(not singular)';
+		echo "\n<!-- SJLD DEBUG running. detected post_type: '" . esc_html( $detected )
+			. "' | TEAM_MEMBER_POST_TYPE: '" . esc_html( TEAM_MEMBER_POST_TYPE )
+			. "' | is_singular(post): " . ( is_singular( 'post' ) ? 'yes' : 'no' )
+			. " | is_singular(TM): " . ( is_singular( TEAM_MEMBER_POST_TYPE ) ? 'yes' : 'no' )
+			. " -->\n";
+	}
+ 
 	// --- Single blog post ---
 	if ( is_singular( 'post' ) ) {
 		$post_id = get_queried_object_id();
@@ -1034,4 +1045,3 @@ function sjld_output_schema() {
 		return;
 	}
 }
- 

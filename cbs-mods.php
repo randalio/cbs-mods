@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CBS Mods
  * Description: 
- * Version: 1.7
+ * Version: 1.9
  * Author: Randal Pope
  */
 
@@ -553,14 +553,14 @@ add_filter( 'rest_authentication_errors', function( $result ) {
 } );
 
 
-/* -------------------------------------------------------------------------
+* -------------------------------------------------------------------------
  * 0. CONFIG  -- set your site base here (no trailing slash)
  * ---------------------------------------------------------------------- */
 if ( ! defined( 'SITE_SCHEMA_BASE' ) ) {
 	// Base URL is pulled from WordPress (Settings > General). No hardcoding needed.
 	define( 'SITE_SCHEMA_BASE', untrailingslashit( home_url() ) );
 }
-
+ 
 /* Adjust these to match your registered post type + ACF field names */
 if ( ! defined( 'TEAM_MEMBER_POST_TYPE' ) ) {
 	define( 'TEAM_MEMBER_POST_TYPE', 'team_member' );
@@ -568,11 +568,11 @@ if ( ! defined( 'TEAM_MEMBER_POST_TYPE' ) ) {
 if ( ! defined( 'BLOG_AUTHOR_ACF_FIELD' ) ) {
 	define( 'BLOG_AUTHOR_ACF_FIELD', 'link_to_team_member' );
 }
-
+ 
 /* -------------------------------------------------------------------------
  * 1. HELPERS
  * ---------------------------------------------------------------------- */
-
+ 
 /**
  * Convert an ACF WYSIWYG / <ul> blob into a clean array of strings.
  * The export stores Expertise, Education, etc. as <ul><li>..</li></ul>.
@@ -593,7 +593,7 @@ function sjld_html_list_to_array( $html ) {
 	}
 	return $items;
 }
-
+ 
 /** Strip an ACF text field down to a clean scalar string. */
 function sjld_clean_text( $val ) {
 	if ( is_array( $val ) ) {
@@ -605,12 +605,12 @@ function sjld_clean_text( $val ) {
 	$val = trim( $val, " \t\n\r\0\x0B\"'“”‘’" );
 	return preg_replace( '/\s+/u', ' ', trim( $val ) );
 }
-
+ 
 /** Resolve the canonical Person @id for a given team member post ID. */
 function sjld_person_id( $team_member_id ) {
 	return SITE_SCHEMA_BASE . '/#person-' . (int) $team_member_id;
 }
-
+ 
 /**
  * Best-effort first/last name split from a display title.
  * Keeps any trailing credential suffix (e.g. "CPA, CGMA") out of the family name.
@@ -622,11 +622,11 @@ function sjld_split_name( $full ) {
 	$family = $parts ? implode( ' ', $parts ) : '';
 	return array( $given, $family );
 }
-
+ 
 /* -------------------------------------------------------------------------
  * 2. BUILD PERSON SCHEMA (array) FROM A TEAM MEMBER POST
  * ---------------------------------------------------------------------- */
-
+ 
 /**
  * @param int  $team_member_id  Team Member post ID.
  * @param bool $reference        If true, return only a lightweight node reference
@@ -634,7 +634,7 @@ function sjld_split_name( $full ) {
  * @return array|null
  */
 function sjld_build_person_schema( $team_member_id, $reference = false ) {
-
+ 
 	$team_member_id = (int) $team_member_id;
 	if ( ! $team_member_id || get_post_status( $team_member_id ) !== 'publish' ) {
 		// Still allow non-publish in admin/preview, but bail if no post at all.
@@ -642,20 +642,21 @@ function sjld_build_person_schema( $team_member_id, $reference = false ) {
 			return null;
 		}
 	}
-
+ 
 	$person_id = sjld_person_id( $team_member_id );
 	$name      = sjld_clean_text( get_the_title( $team_member_id ) );
-
+ 
 	if ( $reference ) {
 		return array(
 			'@type' => 'Person',
 			'@id'   => $person_id,
 			'name'  => $name,
+			'url'   => get_permalink( $team_member_id ),
 		);
 	}
-
+ 
 	list( $given, $family ) = sjld_split_name( $name );
-
+ 
 	// ACF fields (use get_field if available, fall back to post meta).
 	$get = function ( $key ) use ( $team_member_id ) {
 		if ( function_exists( 'get_field' ) ) {
@@ -663,25 +664,25 @@ function sjld_build_person_schema( $team_member_id, $reference = false ) {
 		}
 		return get_post_meta( $team_member_id, $key, true );
 	};
-
+ 
 	$job_title = sjld_clean_text( $get( 'position_title' ) ); // "Position/Title"
 	$linkedin  = esc_url_raw( trim( (string) $get( 'linkedin_url' ) ) );
 	$quote     = sjld_clean_text( $get( 'quote' ) );
-
+ 
 	$expertise   = sjld_html_list_to_array( $get( 'expertise' ) );
 	$education    = sjld_html_list_to_array( $get( 'education' ) );
 	$industry     = sjld_html_list_to_array( $get( 'industry_experience' ) );
 	$professional = sjld_html_list_to_array( $get( 'professional_experience' ) );
 	$associations = sjld_html_list_to_array( $get( 'associations' ) );
 	$affiliations = sjld_html_list_to_array( $get( 'affiliations' ) );
-
+ 
 	$schema = array(
 		'@type' => 'Person',
 		'@id'   => $person_id,
 		'name'  => $name,
 		'url'   => get_permalink( $team_member_id ),
 	);
-
+ 
 	if ( $given ) {
 		$schema['givenName'] = $given;
 	}
@@ -691,29 +692,29 @@ function sjld_build_person_schema( $team_member_id, $reference = false ) {
 	if ( $job_title ) {
 		$schema['jobTitle'] = $job_title;
 	}
-
+ 
 	// Headshot -> Person.image
 	$thumb = get_the_post_thumbnail_url( $team_member_id, 'full' );
 	if ( $thumb ) {
 		$schema['image'] = $thumb;
 	}
-
+ 
 	// LinkedIn -> sameAs
 	if ( $linkedin ) {
 		$schema['sameAs'] = array( $linkedin );
 	}
-
+ 
 	// Quote -> description
 	if ( $quote ) {
 		$schema['description'] = $quote;
 	}
-
+ 
 	// knowsAbout = expertise + industry experience (Schema.org supported property)
 	$knows_about = array_values( array_unique( array_merge( $expertise, $industry ) ) );
 	if ( $knows_about ) {
 		$schema['knowsAbout'] = $knows_about;
 	}
-
+ 
 	// Education -> alumniOf (EducationalOrganization nodes)
 	if ( $education ) {
 		$schema['alumniOf'] = array_map(
@@ -726,7 +727,7 @@ function sjld_build_person_schema( $team_member_id, $reference = false ) {
 			$education
 		);
 	}
-
+ 
 	// Associations / Affiliations -> memberOf (Organization nodes)
 	$member_of = array_values( array_unique( array_merge( $associations, $affiliations ) ) );
 	if ( $member_of ) {
@@ -740,7 +741,7 @@ function sjld_build_person_schema( $team_member_id, $reference = false ) {
 			$member_of
 		);
 	}
-
+ 
 	// Professional experience -> hasOccupation
 	if ( $professional ) {
 		$schema['hasOccupation'] = array_map(
@@ -753,7 +754,7 @@ function sjld_build_person_schema( $team_member_id, $reference = false ) {
 			$professional
 		);
 	}
-
+ 
 	// worksFor -> your organisation (publisher)
 	$schema['worksFor'] = array(
 		'@type' => 'Organization',
@@ -761,30 +762,30 @@ function sjld_build_person_schema( $team_member_id, $reference = false ) {
 		'name'  => get_bloginfo( 'name' ),
 		'url'   => SITE_SCHEMA_BASE,
 	);
-
+ 
 	return $schema;
 }
-
+ 
 /* -------------------------------------------------------------------------
  * 3. BUILD BLOGPOSTING SCHEMA (array) FROM A POST
  * ---------------------------------------------------------------------- */
-
+ 
 function sjld_build_blogposting_schema( $post_id ) {
-
+ 
 	$post_id = (int) $post_id;
 	$post    = get_post( $post_id );
 	if ( ! $post ) {
 		return null;
 	}
-
+ 
 	$permalink = get_permalink( $post_id );
-
+ 
 	// --- Resolve author: ACF link_to_team_member, "both linked together" ---
 	$author_node = null;
 	$tm = function_exists( 'get_field' )
 		? get_field( BLOG_AUTHOR_ACF_FIELD, $post_id )
 		: get_post_meta( $post_id, BLOG_AUTHOR_ACF_FIELD, true );
-
+ 
 	// ACF may return a WP_Post, an ID, or an array of either.
 	if ( is_array( $tm ) ) {
 		$tm = reset( $tm );
@@ -793,7 +794,7 @@ function sjld_build_blogposting_schema( $post_id ) {
 		$tm = $tm->ID;
 	}
 	$tm = (int) $tm;
-
+ 
 	if ( $tm ) {
 		// Embed a reference; the full Person node lives in the @graph too (see output fn).
 		$author_node = sjld_build_person_schema( $tm, true );
@@ -805,7 +806,7 @@ function sjld_build_blogposting_schema( $post_id ) {
 			'url'   => get_author_posts_url( $post->post_author ),
 		);
 	}
-
+ 
 	$schema = array(
 		'@type'            => 'BlogPosting',
 		'@id'              => $permalink . '#blogposting',
@@ -832,13 +833,13 @@ function sjld_build_blogposting_schema( $post_id ) {
 			),
 		),
 	);
-
+ 
 	// Featured image -> image
 	$img = get_the_post_thumbnail_url( $post_id, 'full' );
 	if ( $img ) {
 		$schema['image'] = array( $img );
 	}
-
+ 
 	// Excerpt -> description
 	$excerpt = has_excerpt( $post_id )
 		? get_the_excerpt( $post_id )
@@ -846,28 +847,28 @@ function sjld_build_blogposting_schema( $post_id ) {
 	if ( $excerpt ) {
 		$schema['description'] = trim( $excerpt );
 	}
-
+ 
 	// Categories -> articleSection
 	$cats = wp_get_post_terms( $post_id, 'category', array( 'fields' => 'names' ) );
 	if ( ! is_wp_error( $cats ) && $cats ) {
 		$schema['articleSection'] = $cats;
 	}
-
+ 
 	// Keywords from tags
 	$tags = wp_get_post_terms( $post_id, 'post_tag', array( 'fields' => 'names' ) );
 	if ( ! is_wp_error( $tags ) && $tags ) {
 		$schema['keywords'] = implode( ', ', $tags );
 	}
-
+ 
 	$schema['wordCount'] = str_word_count( wp_strip_all_tags( $post->post_content ) );
-
+ 
 	return array( $schema, $tm ); // return tm id so caller can add full Person node
 }
-
+ 
 /* -------------------------------------------------------------------------
  * 4. OUTPUT TO <head> VIA wp_head
  * ---------------------------------------------------------------------- */
-
+ 
 function sjld_print_jsonld( $data ) {
 	if ( empty( $data ) ) {
 		return;
@@ -880,15 +881,15 @@ function sjld_print_jsonld( $data ) {
 	echo wp_json_encode( $graph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT );
 	echo "\n</script>\n";
 }
-
+ 
 add_action( 'wp_head', 'sjld_output_schema', 20 );
 function sjld_output_schema() {
-
+ 
 	// --- Single blog post ---
 	if ( is_singular( 'post' ) ) {
 		$post_id = get_queried_object_id();
 		list( $blogposting, $tm_id ) = sjld_build_blogposting_schema( $post_id );
-
+ 
 		$graph = array();
 		if ( $blogposting ) {
 			$graph[] = $blogposting;
@@ -903,7 +904,7 @@ function sjld_output_schema() {
 		sjld_print_jsonld( $graph );
 		return;
 	}
-
+ 
 	// --- Single team member page ---
 	if ( is_singular( TEAM_MEMBER_POST_TYPE ) ) {
 		$person = sjld_build_person_schema( get_queried_object_id(), false );

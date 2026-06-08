@@ -553,6 +553,8 @@ add_filter( 'rest_authentication_errors', function( $result ) {
 } );
 
 
+
+
 /* -------------------------------------------------------------------------
  * 0. CONFIG  -- set your site base here (no trailing slash)
  * ---------------------------------------------------------------------- */
@@ -640,7 +642,12 @@ function sjld_resolve_post_id( $value ) {
 		}
 		// Treat as a URL: resolve the permalink back to a post ID.
 		$id = url_to_postid( $value );
-		return (int) $id; // 0 if it cannot be resolved
+		if ( $id ) {
+			return (int) $id;
+		}
+		// Fallback for CPT permalinks url_to_postid() can miss: match the last
+		// path segment as a team member slug.
+		return sjld_postid_from_slug( $value );
 	}
  
 	if ( is_array( $value ) ) {
@@ -654,6 +661,24 @@ function sjld_resolve_post_id( $value ) {
 	}
  
 	return 0;
+}
+ 
+/**
+ * Resolve a team member CPT post ID from a permalink's final slug.
+ * Used as a fallback when url_to_postid() cannot map a CPT URL.
+ */
+function sjld_postid_from_slug( $url ) {
+	$path = trim( wp_parse_url( $url, PHP_URL_PATH ), '/' );
+	if ( $path === '' ) {
+		return 0;
+	}
+	$segments = explode( '/', $path );
+	$slug     = end( $segments );
+	if ( ! $slug ) {
+		return 0;
+	}
+	$found = get_page_by_path( $slug, OBJECT, TEAM_MEMBER_POST_TYPE );
+	return $found ? (int) $found->ID : 0;
 }
  
 /**
@@ -861,11 +886,26 @@ function sjld_build_blogposting_schema( $post_id ) {
  
 	$permalink = get_permalink( $post_id );
  
-	// --- Resolve author: ACF link_to_team_member, "both linked together" ---
+	// --- Resolve author: ACF link_to_team_member ---
+	// The Page Link field lives on the post's AUTHOR (a WP user), not the post.
 	$author_node = null;
-	$tm_raw = function_exists( 'get_field' )
-		? get_field( BLOG_AUTHOR_ACF_FIELD, $post_id )
-		: get_post_meta( $post_id, BLOG_AUTHOR_ACF_FIELD, true );
+	$author_user_id = (int) $post->post_author;
+ 
+	// Read the ACF user field. ACF addresses user fields with the "user_{ID}" selector.
+	$tm_raw = '';
+	if ( function_exists( 'get_field' ) && $author_user_id ) {
+		$tm_raw = get_field( BLOG_AUTHOR_ACF_FIELD, 'user_' . $author_user_id );
+	}
+	if ( empty( $tm_raw ) && $author_user_id ) {
+		// Raw fallback: ACF stores user meta under the field name in wp_usermeta.
+		$tm_raw = get_user_meta( $author_user_id, BLOG_AUTHOR_ACF_FIELD, true );
+	}
+ 
+	// Optional debug: append ?sjld_debug=1 to a post URL (admins only) to see the raw value.
+	if ( isset( $_GET['sjld_debug'] ) && current_user_can( 'manage_options' ) ) {
+		echo "\n<!-- SJLD DEBUG link_to_team_member (user_{$author_user_id}) raw: "
+			. esc_html( wp_json_encode( $tm_raw ) ) . " -->\n";
+	}
  
 	$tm      = sjld_resolve_post_id( $tm_raw );
 	$tm_url  = sjld_resolve_url( $tm_raw ); // raw Page Link URL, if any
@@ -877,14 +917,15 @@ function sjld_build_blogposting_schema( $post_id ) {
 		// ID could not be resolved (e.g. CPT permalink), but we still have the URL.
 		$author_node = array(
 			'@type' => 'Person',
+			'name'  => get_the_author_meta( 'display_name', $author_user_id ),
 			'url'   => $tm_url,
 		);
 	} else {
 		// Fallback to native WP author.
 		$author_node = array(
 			'@type' => 'Person',
-			'name'  => get_the_author_meta( 'display_name', $post->post_author ),
-			'url'   => get_author_posts_url( $post->post_author ),
+			'name'  => get_the_author_meta( 'display_name', $author_user_id ),
+			'url'   => get_author_posts_url( $author_user_id ),
 		);
 	}
  
